@@ -1,0 +1,5 @@
+F:\GitDatabase\Test\Test\bin\Test.dll
+F:\GitDatabase\Test\Test\bin\Test.pdb
+F:\GitDatabase\Test\Test\obj\Debug\Test.csprojResolveAssemblyReference.cache
+F:\GitDatabase\Test\Test\obj\Debug\Test.dll
+F:\GitDatabase\Test\Test\obj\Debug\Test.pdb
