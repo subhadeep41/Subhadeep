@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows;
-using System.Runtime.Caching;
-using System.Windows.Controls;
-using System.ComponentModel;
 using Microsoft.Win32;
 
 namespace wpfuploader
