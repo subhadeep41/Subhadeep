@@ -7,7 +7,7 @@
         Name="datagrid1"
 	    HorizontalAlignment="Left"
 	    VerticalAlignment="Top" 
-	    Loaded="show1_Click" Margin="50,61,0,0" Height="20" Width="196"/>
+	    Loaded="show1_Click"/>
         <Button Content="upload" HorizontalAlignment="Left" Margin="294,60,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         <Label Content="No file" Name="lable1" HorizontalAlignment="Left" Margin="382,58,0,0" VerticalAlignment="Top"/>
         <Button Content="show grid" Name="show1" Visibility="Collapsed"  HorizontalAlignment="Left" Margin="296,97,0,0" VerticalAlignment="Top" Width="75" Click="show1_Click"/>
