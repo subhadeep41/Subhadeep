@@ -1,0 +1,8 @@
+F:\GitDatabase\wpfdemo\Windowapp\bin\Debug\Windowapp.exe
+F:\GitDatabase\wpfdemo\Windowapp\bin\Debug\Windowapp.pdb
+F:\GitDatabase\wpfdemo\Windowapp\obj\Debug\Windowapp.csprojResolveAssemblyReference.cache
+F:\GitDatabase\wpfdemo\Windowapp\obj\Debug\Windowapp.Windowapp.resources
+F:\GitDatabase\wpfdemo\Windowapp\obj\Debug\Windowapp.Properties.Resources.resources
+F:\GitDatabase\wpfdemo\Windowapp\obj\Debug\Windowapp.csproj.GenerateResource.Cache
+F:\GitDatabase\wpfdemo\Windowapp\obj\Debug\Windowapp.exe
+F:\GitDatabase\wpfdemo\Windowapp\obj\Debug\Windowapp.pdb
