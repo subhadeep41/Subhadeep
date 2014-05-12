@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CunsumeWCF.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="CunsumeWCF_SimpleCalculator_SimpleCalculator" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://localhost:8090/MyService/SimpleCalculator</Value>
+    </Setting>
+    <Setting Name="CunsumeWCF_localhost_SimpleCalculator" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:8090/MyService/SimpleCalculator</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
