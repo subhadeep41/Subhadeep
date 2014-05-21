@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Windowapp
 {
@@ -13,6 +14,7 @@ namespace Windowapp
     {
         string pathoffile { get; set; }
         List<User> _list=null;
+        List<User> Users = new List<User>();
         public Windowapp()
         {
             InitializeComponent();
@@ -149,6 +151,90 @@ namespace Windowapp
         private void button3_Click(object sender, EventArgs e)
         {
             this.dataGridView1.Rows.Clear();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Excel.Application xlApp;
+            Excel.Workbook xlWorkBook;
+            Excel.Worksheet xlWorkSheet;
+            object misValue = System.Reflection.Missing.Value;
+            xlApp = new Excel.Application();
+            DataTable DTtable = new DataTable();
+            dataGridView1.AutoGenerateColumns = false;
+            dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+
+            xlApp = new Excel.Application();
+            xlWorkBook = xlApp.Workbooks.Add(misValue);
+            xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+            for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
+            {
+                xlWorkSheet.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
+            }
+            for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+            {
+                for (int j = 0; j < dataGridView1.Columns.Count; j++)
+                {
+                    xlWorkSheet.Cells[i + 2, j + 1] = Convert.ToString(dataGridView1.Rows[i].Cells[j].Value);
+                }
+            }
+            xlApp.Visible = true;
+            ObjectRelease(xlWorkSheet);
+            ObjectRelease(xlWorkBook);
+            ObjectRelease(xlApp);
+
+        }
+        private void ObjectRelease(object objRealease)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(objRealease);
+                objRealease = null;
+            }
+            catch (Exception ex)
+            {
+                objRealease = null;
+                MessageBox.Show("Error_" + ex.ToString());
+            }
+            finally
+            {
+                GC.Collect();
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.RowCount > 0)
+            {
+                String RowcCount = "";
+                string Startuppath = Application.StartupPath + "/";
+                string Destinationpath = Startuppath + "" + DateTime.Now.ToString("dd-MMM-yyy") + ".txt";
+                using (StreamWriter Streamwrite = File.CreateText(Destinationpath))
+                {
+
+                    for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                    {
+                        RowcCount = "";
+                        for (int j = 0; j < dataGridView1.Columns.Count; j++)
+                        {
+                            if (RowcCount.Length > 0)
+                            {
+                                RowcCount = RowcCount + "," + Convert.ToString(dataGridView1.Rows[i].Cells[j].Value);
+                            }
+                            else
+                            {
+                                RowcCount = Convert.ToString(dataGridView1.Rows[i].Cells[j].Value);
+                            }
+                        }
+                        Streamwrite.WriteLine(RowcCount);
+                    }
+                    Streamwrite.WriteLine(Streamwrite.NewLine);
+                    Streamwrite.Close();
+                    MessageBox.Show("File Created Successfully");
+                }
+
+            }
         }
     }
 }
