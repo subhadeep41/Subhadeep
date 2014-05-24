@@ -10,10 +10,12 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Windowapp
 {
+
     public partial class Windowapp : Form
     {
         string pathoffile { get; set; }
-        List<User> _list=null;
+        List<User> _list = null;
+        int gsv = 0;
         List<User> Users = new List<User>();
         public Windowapp()
         {
@@ -30,6 +32,8 @@ namespace Windowapp
                     if ((System.IO.Path.GetFileName(pathoffile)).Contains(".txt") || (System.IO.Path.GetFileName(pathoffile)).Contains(".nm"))
                     {
                         int count = 0;
+                        string[] partsnew = new string[20];
+                        StringBuilder line1 = new StringBuilder();
                         while (true)
                         {
                             string line = reader.ReadLine();
@@ -37,10 +41,60 @@ namespace Windowapp
                             { break; }
                             if (count <= 100)
                             {
-                                Users.Add(new User(line));
+                                string[] parts = null;
+                                #region logic
+                                parts = line.Split(',');
+                                    string GPGL = parts[0];
+                                    if (GPGL == "$GLGGA")
+                                    {
+                                        partsnew[2] = parts[2]; partsnew[5] = parts[4];
+                                        partsnew[6] = parts[6]; partsnew[9] = parts[9];
+                                    }
+                                    if (GPGL == "$GLGSA")
+                                    {
+                                        partsnew[15] = parts[15];
+                                        partsnew[16] = parts[16]; partsnew[17] = parts[17];
+                                    }
+                                    if (GPGL == "$GLZDA")
+                                    {
+                                        partsnew[1] = parts[1];
+                                        StringBuilder sb = new StringBuilder();
+                                        sb.Append(parts[2] + "/");
+                                        sb.Append(parts[3] + "/");
+                                        sb.Append(parts[4]);
+                                        partsnew[0] = Convert.ToString(sb);
+                                    }
+                                    if (GPGL == "$GPGSV")
+                                    {
+                                        if (gsv == 0)
+                                        {
+                                            partsnew[11] = parts[3];
+                                        }
+                                        if (gsv == 2)
+                                        {
+                                            partsnew[12] = parts[3];
+                                        }
+                                        gsv = gsv + 1;
+                                    }
+                                    else
+                                    {
+                                        gsv = 0;
+                                    }
+                                    if ((GPGL == "$GLGSV"))
+                                    {
+                                        partsnew[13] = parts[3]; partsnew[14] = parts[3];
+                                    }
+                                #endregion 
+                                parts = null;
                             }
                             count = count + 1;
                         }
+                        for (int i = 0; i < 18; i++)
+                        {
+                            line1.Append(partsnew[i] + ",");
+                        }
+                        line1.Append(partsnew[18]);
+                        Users.Add(new User(Convert.ToString(line1)));
                         this._list = Users;
                         databind(Users);
                     }
@@ -64,7 +118,7 @@ namespace Windowapp
                         //dataGridView1.DataSource = Users;
                         foreach (User o in Users)
                         {
-                            dataGridView1.Rows.Add(o.Date, o.Time, o.latitude, o.min, o.second, o.longitude, o.altitude, o.fix, o.pdop, o.hdop, o.vdop, o.GPS, o.GPSused, o.GLO, o.GLOused, o.totalSV, o.totalSVused);
+                            dataGridView1.Rows.Add(o.Date, o.Time, o.latitude, o.longitude, o.altitude, o.quality, o.pdop, o.hdop, o.vdop, o.GPS, o.GPSused, o.GLO, o.GLOused, o.totalSV, o.totalSVused);
                         }
                         label2.Text = "Success";
                         label2.ForeColor = Color.Green;
@@ -80,6 +134,7 @@ namespace Windowapp
         }
         class User
         {
+            #region public properties
             public string Date { get; set; }
             public string Time { get; set; }
             public string latitude { get; set; }
@@ -87,7 +142,7 @@ namespace Windowapp
             public string second { get; set; }
             public string longitude { get; set; }
             public string altitude { get; set; }
-            public string fix { get; set; }
+            public string quality { get; set; }
             public string pdop { get; set; }
             public string hdop { get; set; }
             public string vdop { get; set; }
@@ -95,24 +150,29 @@ namespace Windowapp
             public string GPSused { get; set; }
             public string GLO { get; set; }
             public string GLOused { get; set; }
-            public string totalSV  { get; set; }
-            public string totalSVused  { get; set; }
+            public string totalSV { get; set; }
+            public string totalSVused { get; set; }
+            #endregion
 
             public User(string line)
             {
                 try
                 {
                     string[] parts = line.Split(',');
+                    this.GPS = parts[11];
+                    this.GPSused = parts[12];
+                    this.GLO = parts[13];
+                    this.GLOused = parts[14];
+                    this.latitude = parts[2]; this.quality = parts[6];
+                    this.longitude = parts[5]; this.altitude = parts[9];
+                    this.pdop = parts[15]; this.hdop = parts[16];
+                    this.vdop = parts[17];
                     this.Date = parts[0];
                     this.Time = parts[1];
-                    this.latitude = parts[2];
-                    this.min = parts[3]; this.second = parts[4]; this.longitude = parts[5]; this.altitude = parts[6]; this.fix = parts[7];
-                    this.pdop = parts[8]; this.hdop = parts[9]; this.vdop = parts[10]; this.GPS = parts[11]; this.GPSused = parts[12];
-                    this.GLO = parts[13]; this.GPSused = parts[14]; this.totalSV = parts[15]; this.totalSVused = parts[16];
+                    this.totalSV = Convert.ToString(Convert.ToInt32(this.GPS) + Convert.ToInt32(this.GLO));
+                    this.totalSVused = Convert.ToString(Convert.ToInt32(this.GPSused) + Convert.ToInt32(this.GLOused));
                 }
-                catch (Exception e)
-                {
-                }
+                catch (Exception e) { }
             }
         }
 
@@ -160,7 +220,6 @@ namespace Windowapp
             Excel.Worksheet xlWorkSheet;
             object misValue = System.Reflection.Missing.Value;
             xlApp = new Excel.Application();
-            DataTable DTtable = new DataTable();
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
@@ -185,6 +244,7 @@ namespace Windowapp
             ObjectRelease(xlApp);
 
         }
+
         private void ObjectRelease(object objRealease)
         {
             try

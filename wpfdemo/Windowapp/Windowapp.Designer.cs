@@ -28,17 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.min = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.second = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.longitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.altitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fix = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quality = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pdop = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hdop = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vdop = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -67,11 +65,9 @@
             this.Date,
             this.Time,
             this.Address,
-            this.min,
-            this.second,
             this.longitude,
             this.altitude,
-            this.fix,
+            this.quality,
             this.pdop,
             this.hdop,
             this.vdop,
@@ -84,9 +80,9 @@
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dataGridView1.Location = new System.Drawing.Point(0, 158);
             this.dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridView1.Size = new System.Drawing.Size(985, 256);
             this.dataGridView1.TabIndex = 0;
@@ -108,38 +104,27 @@
             // Address
             // 
             this.Address.DataPropertyName = "latitude";
-            this.Address.HeaderText = "latitude(deg)";
+            this.Address.HeaderText = "Latitude";
             this.Address.Name = "Address";
-            // 
-            // min
-            // 
-            this.min.DataPropertyName = "min";
-            this.min.HeaderText = "min";
-            this.min.Name = "min";
-            // 
-            // second
-            // 
-            this.second.DataPropertyName = "second";
-            this.second.HeaderText = "second";
-            this.second.Name = "second";
             // 
             // longitude
             // 
             this.longitude.DataPropertyName = "longitude";
-            this.longitude.HeaderText = "longitude";
+            this.longitude.HeaderText = "Longitude";
             this.longitude.Name = "longitude";
             // 
             // altitude
             // 
             this.altitude.DataPropertyName = "altitude";
-            this.altitude.HeaderText = "altitude";
+            this.altitude.HeaderText = "Altitude";
             this.altitude.Name = "altitude";
             // 
-            // fix
+            // quality
             // 
-            this.fix.DataPropertyName = "fix";
-            this.fix.HeaderText = "fix";
-            this.fix.Name = "fix";
+            this.quality.DataPropertyName = "quality";
+            this.quality.HeaderText = "Quality";
+            this.quality.Name = "quality";
+            this.quality.ToolTipText = "0-invalid, 1-fix";
             // 
             // pdop
             // 
@@ -162,43 +147,43 @@
             // GPS
             // 
             this.GPS.DataPropertyName = "GPS";
-            this.GPS.HeaderText = "(GPS) Visible";
+            this.GPS.HeaderText = "GPS(Visible)";
             this.GPS.Name = "GPS";
             // 
             // GPSused
             // 
             this.GPSused.DataPropertyName = "GPSused";
-            this.GPSused.HeaderText = "GPSused";
+            this.GPSused.HeaderText = "GPS(used)";
             this.GPSused.Name = "GPSused";
             // 
             // GLO
             // 
             this.GLO.DataPropertyName = "GLO";
-            this.GLO.HeaderText = "(GLO) visible";
+            this.GLO.HeaderText = "GLO(visible)";
             this.GLO.Name = "GLO";
             // 
             // GLOused
             // 
             this.GLOused.DataPropertyName = "GLOused";
-            this.GLOused.HeaderText = "GLOused";
+            this.GLOused.HeaderText = "GLO(used)";
             this.GLOused.Name = "GLOused";
             // 
             // totalSV
             // 
             this.totalSV.DataPropertyName = "totalSV";
-            this.totalSV.HeaderText = "total SV visible";
+            this.totalSV.HeaderText = "Total SV visible";
             this.totalSV.Name = "totalSV";
             // 
             // totalSVused
             // 
             this.totalSVused.DataPropertyName = "totalSVused";
-            this.totalSVused.HeaderText = "totalSVused";
+            this.totalSVused.HeaderText = "Total SV used";
             this.totalSVused.Name = "totalSVused";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Cursor = System.Windows.Forms.Cursors.AppStarting;
+            this.label1.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.label1.Location = new System.Drawing.Point(106, 31);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(80, 13);
@@ -311,14 +296,16 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
         private System.Windows.Forms.DataGridViewTextBoxColumn Time;
         private System.Windows.Forms.DataGridViewTextBoxColumn Address;
-        private System.Windows.Forms.DataGridViewTextBoxColumn min;
-        private System.Windows.Forms.DataGridViewTextBoxColumn second;
         private System.Windows.Forms.DataGridViewTextBoxColumn longitude;
         private System.Windows.Forms.DataGridViewTextBoxColumn altitude;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fix;
+        private System.Windows.Forms.DataGridViewTextBoxColumn quality;
         private System.Windows.Forms.DataGridViewTextBoxColumn pdop;
         private System.Windows.Forms.DataGridViewTextBoxColumn hdop;
         private System.Windows.Forms.DataGridViewTextBoxColumn vdop;
@@ -328,10 +315,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn GLOused;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalSV;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalSVused;
-        private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
     }
 }
 
