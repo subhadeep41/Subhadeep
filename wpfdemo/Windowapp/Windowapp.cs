@@ -14,9 +14,8 @@ namespace Windowapp
     public partial class Windowapp : Form
     {
         string pathoffile { get; set; }
-        List<User> _list = null;
         int gsv = 0;
-        List<User> Users = new List<User>();
+        List<User> Users = null;
         public Windowapp()
         {
             InitializeComponent();
@@ -33,12 +32,23 @@ namespace Windowapp
                     {
                         int count = 0;
                         string[] partsnew = new string[20];
-                        StringBuilder line1 = new StringBuilder();
+                        
+                        StringBuilder finalline = new StringBuilder();
                         while (true)
                         {
                             string line = reader.ReadLine();
                             if (line == null)
-                            { break; }
+                            {
+                                StringBuilder line1 = new StringBuilder();
+                                for (int i = 0; i < 18; i++)
+                                {
+                                    line1.Append(partsnew[i] + ",");
+                                }
+                                line1.Append(partsnew[18]);
+                                finalline.Append(line1);
+                                Users.Add(new User(Convert.ToString(finalline)));
+                                break; 
+                            }
                             if (count <= 100)
                             {
                                 string[] parts = null;
@@ -88,14 +98,20 @@ namespace Windowapp
                                 parts = null;
                             }
                             count = count + 1;
+                            if (line == "")
+                            {
+                                StringBuilder line1 = new StringBuilder();
+                                for (int i = 0; i < 18; i++)
+                                {
+                                    line1.Append(partsnew[i] + ",");
+                                }
+                                line1.Append(partsnew[18]);
+                                finalline.Append(line1);
+                                Users.Add(new User(Convert.ToString(finalline)));
+                                finalline = new StringBuilder();
+                            }
                         }
-                        for (int i = 0; i < 18; i++)
-                        {
-                            line1.Append(partsnew[i] + ",");
-                        }
-                        line1.Append(partsnew[18]);
-                        Users.Add(new User(Convert.ToString(line1)));
-                        this._list = Users;
+                        
                         databind(Users);
                     }
                     else
