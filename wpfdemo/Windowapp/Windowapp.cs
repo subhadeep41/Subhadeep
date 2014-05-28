@@ -15,6 +15,7 @@ namespace Windowapp
     {
         string pathoffile { get; set; }
         int gsv = 0;
+        int gsa = 0;
         List<User> Users = null;
         public Windowapp()
         {
@@ -55,17 +56,19 @@ namespace Windowapp
                                 #region logic
                                 parts = line.Split(',');
                                     string GPGL = parts[0];
-                                    if (GPGL == "$GLGGA")
+                                    if ((GPGL == "$GLGGA") || (GPGL == "$GPGGA") || (GPGL == "$GNGGA"))
                                     {
                                         partsnew[2] = parts[2]; partsnew[5] = parts[4];
                                         partsnew[6] = parts[6]; partsnew[9] = parts[9];
                                     }
-                                    if (GPGL == "$GLGSA")
+                                    if ((GPGL == "$GLGSA") || (GPGL == "$GPGSA") || ((GPGL == "$GNGSA")&&(gsa==0)))
                                     {
+                                        if (GPGL == "$GNGSA")
+                                        { gsa = gsa + 1; }
                                         partsnew[15] = parts[15];
                                         partsnew[16] = parts[16]; partsnew[17] = parts[17];
                                     }
-                                    if (GPGL == "$GLZDA")
+                                    if ((GPGL == "$GLZDA") || (GPGL == "$GPZDA") || (GPGL == "$GNZDA"))
                                     {
                                         partsnew[1] = parts[1];
                                         StringBuilder sb = new StringBuilder();
@@ -182,7 +185,8 @@ namespace Windowapp
                     this.latitude = parts[2]; this.quality = parts[6];
                     this.longitude = parts[5]; this.altitude = parts[9];
                     this.pdop = parts[15]; this.hdop = parts[16];
-                    this.vdop = parts[17];
+                    string[] xx = Convert.ToString(parts[17]).Split('*');
+                    this.vdop = xx[0];
                     this.Date = parts[0];
                     this.Time = parts[1];
                     this.totalSV = Convert.ToString(Convert.ToInt32(this.GPS) + Convert.ToInt32(this.GLO));

@@ -6,3 +6,8 @@ F:\GitDatabase\wpfdemo\Windowapp\obj\Debug\Windowapp.Properties.Resources.resour
 F:\GitDatabase\wpfdemo\Windowapp\obj\Debug\Windowapp.csproj.GenerateResource.Cache
 F:\GitDatabase\wpfdemo\Windowapp\obj\Debug\Windowapp.exe
 F:\GitDatabase\wpfdemo\Windowapp\obj\Debug\Windowapp.pdb
+F:\GitDatabase\wpfdemo\Windowapp\bin\Debug\Microsoft.Office.Interop.Excel.dll
+F:\GitDatabase\wpfdemo\Windowapp\bin\Debug\office.dll
+F:\GitDatabase\wpfdemo\Windowapp\bin\Debug\Microsoft.Vbe.Interop.dll
+F:\GitDatabase\wpfdemo\Windowapp\bin\Debug\Microsoft.Office.Interop.Excel.xml
+F:\GitDatabase\wpfdemo\Windowapp\bin\Debug\office.xml
