@@ -72,8 +72,8 @@ namespace Windowapp
                                     {
                                         partsnew[1] = parts[1];
                                         StringBuilder sb = new StringBuilder();
-                                        sb.Append(parts[2] + "/");
-                                        sb.Append(parts[3] + "/");
+                                        sb.Append(parts[2] + " ");
+                                        sb.Append(parts[3] + " ");
                                         sb.Append(parts[4]);
                                         partsnew[0] = Convert.ToString(sb);
                                     }
@@ -288,8 +288,16 @@ namespace Windowapp
             if (dataGridView1.RowCount > 0)
             {
                 String RowcCount = "";
-                string Startuppath = Application.StartupPath + "/";
-                string Destinationpath = Startuppath + "" + DateTime.Now.ToString("dd-MMM-yyy") + ".txt";
+                SaveFileDialog dialog = new SaveFileDialog();
+                dialog.Title = "Save file as...";
+                dialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+                dialog.RestoreDirectory = true;
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                }
+                string Startuppath = dialog.FileName;
+                string Destinationpath = Startuppath;
                 using (StreamWriter Streamwrite = File.CreateText(Destinationpath))
                 {
 
@@ -300,7 +308,7 @@ namespace Windowapp
                         {
                             if (RowcCount.Length > 0)
                             {
-                                RowcCount = RowcCount + "," + Convert.ToString(dataGridView1.Rows[i].Cells[j].Value);
+                                RowcCount = RowcCount + "  " + Convert.ToString(dataGridView1.Rows[i].Cells[j].Value);
                             }
                             else
                             {
