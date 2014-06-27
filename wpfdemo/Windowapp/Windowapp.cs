@@ -14,8 +14,12 @@ namespace Windowapp
     public partial class Windowapp : Form
     {
         string pathoffile { get; set; }
+        string filetype { get; set; }
         int gsv = 0;
         int gsa = 0;
+        int igsv = 18;
+        int ygsv = 34;
+        int counter = 0;
         List<User> Users = null;
         public Windowapp()
         {
@@ -31,8 +35,11 @@ namespace Windowapp
 
                     if ((System.IO.Path.GetFileName(pathoffile)).Contains(".txt") || (System.IO.Path.GetFileName(pathoffile)).Contains(".nm"))
                     {
+                        if ((System.IO.Path.GetFileName(pathoffile)).Contains(".L12")) { filetype = "Ltype"; }
+                        if ((System.IO.Path.GetFileName(pathoffile)).Contains(".P12")) { filetype = "Ptype"; }
+                        if ((System.IO.Path.GetFileName(pathoffile)).Contains(".X13")) { filetype = "Xtype"; }
+                        string[] partsnew = new string[100];
                         int count = 0;
-                        string[] partsnew = new string[20];
                         
                         StringBuilder finalline = new StringBuilder();
                         while (true)
@@ -41,89 +48,132 @@ namespace Windowapp
                             if (line == null)
                             {
                                 StringBuilder line1 = new StringBuilder();
-                                for (int i = 0; i < 18; i++)
+                                for (int i = 0; i < 98; i++)
                                 {
                                     line1.Append(partsnew[i] + ",");
                                 }
-                                line1.Append(partsnew[18]);
+                                line1.Append(partsnew[98]);
                                 finalline.Append(line1);
                                 Users.Add(new User(Convert.ToString(finalline)));
-                                break; 
+                                break;
                             }
-                            if (count <= 100)
+                           // if (count <= 100)
                             {
-                                string[] parts = null;
+                                string[] parts = new string[20];
+                                string[] newdata = new string[20];
                                 #region logic
+                                newdata = line.Split(',');
+                                if ((newdata.Length < 20) && (newdata.Length > 1))
+                                {
+                                    for (int i = 0; i < (20 - newdata.Length); i++)
+                                    {
+                                        line += ",";
+                                        line += "0";
+                                    }
+                                }
                                 parts = line.Split(',');
-                                    string GPGL = parts[0];
-                                    if ((GPGL == "$GLGGA") || (GPGL == "$GPGGA") || (GPGL == "$GNGGA"))
+                                string GPGL = parts[0];
+                                if ((GPGL == "$GLGGA") || (GPGL == "$GPGGA") || (GPGL == "$GNGGA"))
+                                {
+                                    partsnew[2] = parts[2]; partsnew[5] = parts[4];
+                                    partsnew[6] = parts[6]; partsnew[9] = parts[9];
+                                    if (filetype == "Ptype") { partsnew[14] = "0"; } else { partsnew[14] = parts[7]; }
+                                    if (filetype == "Ltype") { partsnew[12] = "0"; } else { partsnew[12] = parts[7]; }
+                                }
+                                if ((GPGL == "$GLGSA") || (GPGL == "$GPGSA") || ((GPGL == "$GNGSA")))
+                                {
+                                    if (GPGL == "$GNGSA") { gsa = gsa + 1; }
+                                    partsnew[15] = parts[15];
+                                    partsnew[16] = parts[16]; partsnew[17] = parts[17];
+                                    int pos = Array.IndexOf(parts, "");
+                                    int x = pos - 3;
+                                    if (gsa == 1)
                                     {
-                                        partsnew[2] = parts[2]; partsnew[5] = parts[4];
-                                        partsnew[6] = parts[6]; partsnew[9] = parts[9];
+                                        if (filetype == "Xtype") { partsnew[12] = Convert.ToString(x); }
                                     }
-                                    if ((GPGL == "$GLGSA") || (GPGL == "$GPGSA") || ((GPGL == "$GNGSA")&&(gsa==0)))
+                                    if (gsa == 2)
                                     {
-                                        if (GPGL == "$GNGSA")
-                                        { gsa = gsa + 1; }
-                                        partsnew[15] = parts[15];
-                                        partsnew[16] = parts[16]; partsnew[17] = parts[17];
+                                        if (filetype == "Xtype") { partsnew[14] = Convert.ToString(x); }
+                                        gsa = 0;
                                     }
-                                    if ((GPGL == "$GLZDA") || (GPGL == "$GPZDA") || (GPGL == "$GNZDA"))
+                                }
+                                if ((GPGL == "$GLZDA") || (GPGL == "$GPZDA") || (GPGL == "$GNZDA"))
+                                {
+                                    partsnew[1] = parts[1];
+                                    StringBuilder sb = new StringBuilder();
+                                    sb.Append(parts[2] + " ");
+                                    sb.Append(parts[3] + " ");
+                                    sb.Append(parts[4]);
+                                    partsnew[0] = Convert.ToString(sb);
+                                }
+                                if (GPGL == "$GPGSV")
+                                {
+                                    if (gsv == 0)
                                     {
-                                        partsnew[1] = parts[1];
-                                        StringBuilder sb = new StringBuilder();
-                                        sb.Append(parts[2] + " ");
-                                        sb.Append(parts[3] + " ");
-                                        sb.Append(parts[4]);
-                                        partsnew[0] = Convert.ToString(sb);
+                                        partsnew[11] = parts[3];
                                     }
-                                    if (GPGL == "$GPGSV")
+                                    gsv = gsv + 1;
+                                }
+                                else
+                                {
+                                    gsv = 0;
+                                }
+                                if ((GPGL == "$GLGSV"))
+                                {
+                                    partsnew[13] = parts[3];
+                                }
+                                if ((GPGL.Contains("GSV")) && (counter < 5))
+                                {
+                                    counter = counter + 1;
+                                    int j = 4;
+                                    for (int x = igsv; x < ygsv; x++)
                                     {
-                                        if (gsv == 0)
+                                        if (parts[j].Contains("*"))
                                         {
-                                            partsnew[11] = parts[3];
+                                            string[] xyz = Convert.ToString(parts[j]).Split('*');
+                                            if (xyz[0] != "") { parts[j] = xyz[0]; }
+                                            else { parts[j] = "0"; }
                                         }
-                                        if (gsv == 2)
+                                        if (parts.Length > j)
                                         {
-                                            partsnew[12] = parts[3];
+                                            partsnew[x] = parts[j];
                                         }
-                                        gsv = gsv + 1;
+                                        j = j + 1;
                                     }
-                                    else
-                                    {
-                                        gsv = 0;
-                                    }
-                                    if ((GPGL == "$GLGSV"))
-                                    {
-                                        partsnew[13] = parts[3]; partsnew[14] = parts[3];
-                                    }
-                                #endregion 
+                                    igsv = ygsv;
+                                    ygsv = ygsv + 16;
+                                }
+                                else
+                                {
+                                    igsv = 18;
+                                    ygsv = 34;
+                                    counter = 0;
+                                }
+                                #endregion
                                 parts = null;
                             }
-                            count = count + 1;
+                                count = count + 1;
                             if (line == "")
                             {
                                 StringBuilder line1 = new StringBuilder();
-                                for (int i = 0; i < 18; i++)
+                                for (int i = 0; i < 98; i++)
                                 {
                                     line1.Append(partsnew[i] + ",");
                                 }
-                                line1.Append(partsnew[18]);
+                                line1.Append(partsnew[98]);
                                 finalline.Append(line1);
                                 Users.Add(new User(Convert.ToString(finalline)));
                                 finalline = new StringBuilder();
+                                partsnew = new string[100];
                             }
                         }
-                        
                         databind(Users);
                     }
                     else
-                    {
-                        label1.Text = "Not a valid file";
-                    }
+                    {label1.Text = "Not a valid file";}
                 }
             }
-            catch { }
+            catch (Exception ex) { MessageBox.Show("Error:" + ex.ToString()); }
         }
         private void databind(List<User> Users)
         {
@@ -137,7 +187,7 @@ namespace Windowapp
                         //dataGridView1.DataSource = Users;
                         foreach (User o in Users)
                         {
-                            dataGridView1.Rows.Add(o.Date, o.Time, o.latitude, o.longitude, o.altitude, o.quality, o.pdop, o.hdop, o.vdop, o.GPS, o.GPSused, o.GLO, o.GLOused, o.totalSV, o.totalSVused);
+                            dataGridView1.Rows.Add(o.Date, o.Time, o.latitude, o.longitude, o.altitude, o.quality, o.pdop, o.hdop, o.vdop, o.GPS, o.GPSused, o.GLO, o.GLOused, o.totalSV, o.totalSVused,o.PRN,o.Eleivation, o.Azimuth, o.SNR, o.more);
                         }
                         label2.Text = "Success";
                         label2.ForeColor = Color.Green;
@@ -149,7 +199,7 @@ namespace Windowapp
                     }
                 }
             }
-            catch { }
+            catch (Exception ex) { MessageBox.Show("Error:" + ex.ToString()); }
         }
         class User
         {
@@ -171,6 +221,11 @@ namespace Windowapp
             public string GLOused { get; set; }
             public string totalSV { get; set; }
             public string totalSVused { get; set; }
+            public string PRN { get; set; }
+            public string Eleivation { get; set; }
+            public string Azimuth { get; set; }
+            public string SNR { get; set; }
+            public string more { get; set; }
             #endregion
 
             public User(string line)
@@ -191,6 +246,17 @@ namespace Windowapp
                     this.Time = parts[1];
                     this.totalSV = Convert.ToString(Convert.ToInt32(this.GPS) + Convert.ToInt32(this.GLO));
                     this.totalSVused = Convert.ToString(Convert.ToInt32(this.GPSused) + Convert.ToInt32(this.GLOused));
+                    this.PRN = parts[18];
+                    this.Eleivation = parts[19];
+                    this.Azimuth = parts[20];
+                    this.SNR = parts[21];
+                    StringBuilder line2 = new StringBuilder();
+                    for (int i = 22; i < parts.Length-1; i++)
+                    {
+                        line2.Append(parts[i] + "  ");
+                    }
+                    line2.Append(parts[parts.Length-1]);
+                    this.more = line2.ToString();
                 }
                 catch (Exception e) { }
             }
