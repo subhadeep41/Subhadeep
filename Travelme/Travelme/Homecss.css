@@ -1,0 +1,31 @@
+﻿body {
+}
+ .width11
+        {
+            width: 98%;
+        }
+ .forimages
+        {
+            color: #FF5050;
+        }
+.navi{ width:966px; float:left; background:#ccd9d9;}
+.navi a:hover{ text-decoration:underline; float:left;}
+.navi_hm{ float:left; padding:15px 40px; margin-right:1px; font: bold 15px Trebuchet MS; color:#2f6d6d; text-decoration:none;
+          background-color: #e5f2ef;
+    width: 890px;
+    text-align: left;
+}
+.navi_tx{ float:left; padding:15px 40px; margin-right:1px; font: bold 15px Trebuchet MS; color:#58aeae; text-decoration:none; 
+          background-color: #add8e6}
+.navi_tz{ float:left; padding:15px 40px; margin-right:1px; font: bold 15px Trebuchet MS; color:#4a9292; text-decoration:none; 
+          background-color: #b0c4ca}
+
+/*Id blocks */
+#top_block{ width:970px; float:left; padding-top:9px; background:#007A87;}
+/*Id blocks */
+
+/* image blocks */
+.tp_img1,.tp_img2{ background:url(images/tp_bk1.jpg) no-repeat left; width:970px; height:319px; float:left;}
+.tp_img2{background:url(/images/tp_bk2.jpg) no-repeat right; }
+.tp_tx{ margin:55px 0 0 225px; float:left; }
+/* image blocks */

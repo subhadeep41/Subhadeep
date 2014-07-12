@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<states>
+  <state lable="West Bengal" />
+  <state lable="Maharashtra" />
+  <state lable="Kerala" />
+  <state lable="Odissa" />
+  <state lable="Tamilnadu" />
+  <state lable="Uttar Pradesh" />
+  <state lable="Madhya Pradesh" />
+  <state lable="Rajasthan" />
+  <state lable="Jammu Kashmir" />
+  <state lable="chatisgarh" />
+  <state lable="Haryana" />
+  <state lable="Uttarakhand" />
+  <state lable="Bihar" />
+  <state lable="Jharkhand" />
+  <state lable="Assam" />
+  <state lable="Karnataka" />
+  <state lable="Goa" />
+  <state lable="Punjab" />
+  <state lable="Sikkim" />
+  <state lable="Mizoram" />
+  <state lable="Manipal" />
+  <state lable="Delhi" />
+</states>

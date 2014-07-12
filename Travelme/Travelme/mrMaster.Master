@@ -1,0 +1,50 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="mrMaster.master.cs" Inherits="Travelme.mrMaster" %>
+
+<%@ Register Src="controls/searchbox.ascx" TagName="searchbox" TagPrefix="uc1" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>TravelMe</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div class="main">
+        <div class="clr">
+        </div>
+        <div class="header">
+            <div class="logo">
+                <h1>
+                    <a href="Home.aspx"><span class="logo1">Time Table</span></a><a href="Home.aspx"><span class="logo1">&nbsp; </span><span>
+                    <span class="logo2">Find your way</span></span><small>Beta v1.0</small></a></h1>
+            </div>
+            <div class="menu_nav">
+                <ul>
+                    <li class="active"><a href="Home.aspx">Home</a></li>
+                    <li class="active"><a href="support.aspx">Support</a></li>
+                    <li class="active"><a href="about.aspx">About Us</a></li>
+                    <li class="active"><a href="blog.aspx">Blog</a></li>
+                    <li class="active"><a href="contact.aspx">Contact Us</a></li>
+                </ul>
+                <div class="clr">
+                </div>
+            </div>
+            <div class="clr">
+            </div>
+        </div>
+        <form id="form1" runat="server">
+        <a href="Javascript:window.location.reload(true);" id="HyperLink1">Refresh</a>
+        <a href="Javascript:window.print();"id="HyperLink2">Print</a>
+        <br />
+        </form>
+        <uc1:searchbox ID="searchbox1" runat="server" />
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div></div>
+</body>
+</html>
