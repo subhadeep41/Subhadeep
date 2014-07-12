@@ -20,6 +20,7 @@ namespace Windowapp
         int igsv = 18;
         int ygsv = 34;
         int counter = 0;
+        int zdaoccured = 0;
         List<User> Users = null;
         public Windowapp()
         {
@@ -33,11 +34,11 @@ namespace Windowapp
                 using (StreamReader reader = new StreamReader(pathoffile))
                 {
 
-                    if ((System.IO.Path.GetFileName(pathoffile)).Contains(".txt") || (System.IO.Path.GetFileName(pathoffile)).Contains(".nm"))
+                    if ((System.IO.Path.GetFileName(pathoffile)).Contains(".txt") || (System.IO.Path.GetFileName(pathoffile)).Contains(""))
                     {
-                        if ((System.IO.Path.GetFileName(pathoffile)).Contains(".L12")) { filetype = "Ltype"; }
-                        if ((System.IO.Path.GetFileName(pathoffile)).Contains(".P12")) { filetype = "Ptype"; }
-                        if ((System.IO.Path.GetFileName(pathoffile)).Contains(".X13")) { filetype = "Xtype"; }
+                        if ((System.IO.Path.GetFileName(pathoffile)).Contains(".L") || (System.IO.Path.GetFileName(pathoffile)).Contains(".l")) { filetype = "Ltype"; }
+                        if ((System.IO.Path.GetFileName(pathoffile)).Contains(".P") || (System.IO.Path.GetFileName(pathoffile)).Contains(".p")) { filetype = "Ptype"; }
+                        if ((System.IO.Path.GetFileName(pathoffile)).Contains(".X") || (System.IO.Path.GetFileName(pathoffile)).Contains(".x")) { filetype = "Xtype"; }
                         string[] partsnew = new string[100];
                         int count = 0;
                         
@@ -68,17 +69,19 @@ namespace Windowapp
                                     for (int i = 0; i < (20 - newdata.Length); i++)
                                     {
                                         line += ",";
-                                        line += "0";
+                                        line += "00";
                                     }
                                 }
                                 parts = line.Split(',');
                                 string GPGL = parts[0];
-                                if ((GPGL == "$GLGGA") || (GPGL == "$GPGGA") || (GPGL == "$GNGGA"))
+                                if ((GPGL == "$GLGGA") || (GPGL == "$GPGGA") || (GPGL == "$GNGGA") || (GPGL == "$GNGNS"))
                                 {
                                     partsnew[2] = parts[2]; partsnew[5] = parts[4];
                                     partsnew[6] = parts[6]; partsnew[9] = parts[9];
-                                    if (filetype == "Ptype") { partsnew[14] = "0"; } else { partsnew[14] = parts[7]; }
-                                    if (filetype == "Ltype") { partsnew[12] = "0"; } else { partsnew[12] = parts[7]; }
+                                    if (filetype == "Ptype") { partsnew[14] = "00"; } 
+                                    else { partsnew[14] = parts[7]; }
+                                    if (filetype == "Ltype") { partsnew[12] = "00"; } 
+                                    else { partsnew[12] = parts[7]; }
                                 }
                                 if ((GPGL == "$GLGSA") || (GPGL == "$GPGSA") || ((GPGL == "$GNGSA")))
                                 {
@@ -105,6 +108,7 @@ namespace Windowapp
                                     sb.Append(parts[3] + " ");
                                     sb.Append(parts[4]);
                                     partsnew[0] = Convert.ToString(sb);
+                                    zdaoccured = 1;
                                 }
                                 if (GPGL == "$GPGSV")
                                 {
@@ -132,8 +136,9 @@ namespace Windowapp
                                         {
                                             string[] xyz = Convert.ToString(parts[j]).Split('*');
                                             if (xyz[0] != "") { parts[j] = xyz[0]; }
-                                            else { parts[j] = "0"; }
+                                            else { parts[j] = "000"; }
                                         }
+                                        if (parts[j] == "") { parts[j] = "000"; }
                                         if (parts.Length > j)
                                         {
                                             partsnew[x] = parts[j];
@@ -153,7 +158,7 @@ namespace Windowapp
                                 parts = null;
                             }
                                 count = count + 1;
-                            if (line == "")
+                                if (zdaoccured == 1)
                             {
                                 StringBuilder line1 = new StringBuilder();
                                 for (int i = 0; i < 98; i++)
@@ -165,6 +170,7 @@ namespace Windowapp
                                 Users.Add(new User(Convert.ToString(finalline)));
                                 finalline = new StringBuilder();
                                 partsnew = new string[100];
+                                zdaoccured = 0;
                             }
                         }
                         databind(Users);
@@ -187,7 +193,7 @@ namespace Windowapp
                         //dataGridView1.DataSource = Users;
                         foreach (User o in Users)
                         {
-                            dataGridView1.Rows.Add(o.Date, o.Time, o.latitude, o.longitude, o.altitude, o.quality, o.pdop, o.hdop, o.vdop, o.GPS, o.GPSused, o.GLO, o.GLOused, o.totalSV, o.totalSVused,o.PRN,o.Eleivation, o.Azimuth, o.SNR, o.more);
+                            dataGridView1.Rows.Add(o.Date, o.Time, o.latitude, o.longitude, o.altitude, o.quality, o.pdop, o.hdop, o.vdop, o.GPS, o.GPSused, o.GLO, o.GLOused,o.GAL,o.GALused, o.totalSV, o.totalSVused,o.PRN,o.Eleivation, o.Azimuth, o.SNR, o.more);
                         }
                         label2.Text = "Success";
                         label2.ForeColor = Color.Green;
@@ -219,6 +225,8 @@ namespace Windowapp
             public string GPSused { get; set; }
             public string GLO { get; set; }
             public string GLOused { get; set; }
+            public string GAL { get; set; }
+            public string GALused { get; set; }
             public string totalSV { get; set; }
             public string totalSVused { get; set; }
             public string PRN { get; set; }
@@ -237,7 +245,9 @@ namespace Windowapp
                     this.GPSused = parts[12];
                     this.GLO = parts[13];
                     this.GLOused = parts[14];
-                    this.latitude = parts[2]; this.quality = parts[6];
+                    this.GAL = "00";
+                    this.GALused = "00";
+                    this.latitude = parts[2]; this.quality = "1";
                     this.longitude = parts[5]; this.altitude = parts[9];
                     this.pdop = parts[15]; this.hdop = parts[16];
                     string[] xx = Convert.ToString(parts[17]).Split('*');
@@ -246,6 +256,14 @@ namespace Windowapp
                     this.Time = parts[1];
                     this.totalSV = Convert.ToString(Convert.ToInt32(this.GPS) + Convert.ToInt32(this.GLO));
                     this.totalSVused = Convert.ToString(Convert.ToInt32(this.GPSused) + Convert.ToInt32(this.GLOused));
+                    if (parts[18].Length < 3) { parts[18] = "0" + parts[18]; }
+                    if (parts[18].Length < 3) { parts[18] = "0" + parts[18]; }
+                    if (parts[19].Length < 3) { parts[19] = "0" + parts[19]; }
+                    if (parts[19].Length < 3) { parts[19] = "0" + parts[19]; }
+                    if (parts[20].Length < 3) { parts[20] = "0" + parts[20]; }
+                    if (parts[20].Length < 3) { parts[20] = "0" + parts[20]; }
+                    if (parts[21].Length < 3) { parts[21] = "0" + parts[21]; }
+                    if (parts[21].Length < 3) { parts[21] = "0" + parts[21]; }
                     this.PRN = parts[18];
                     this.Eleivation = parts[19];
                     this.Azimuth = parts[20];
@@ -253,7 +271,9 @@ namespace Windowapp
                     StringBuilder line2 = new StringBuilder();
                     for (int i = 22; i < parts.Length-1; i++)
                     {
-                        line2.Append(parts[i] + "  ");
+                        if (parts[i].Length < 3) { parts[i] = "0" + parts[i]; }
+                        if (parts[i].Length < 3) { parts[i] = "0" + parts[i]; }
+                        line2.Append(parts[i] + "   ");
                     }
                     line2.Append(parts[parts.Length-1]);
                     this.more = line2.ToString();

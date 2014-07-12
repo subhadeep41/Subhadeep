@@ -39,6 +39,8 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,6 +54,8 @@
             this.GPSused = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GLO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GLOused = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GAL = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GALused = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalSV = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalSVused = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PRN = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -80,6 +84,8 @@
             this.GPSused,
             this.GLO,
             this.GLOused,
+            this.GAL,
+            this.GALused,
             this.totalSV,
             this.totalSVused,
             this.PRN,
@@ -102,7 +108,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.label1.Location = new System.Drawing.Point(106, 31);
+            this.label1.Location = new System.Drawing.Point(26, 47);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(80, 13);
             this.label1.TabIndex = 1;
@@ -179,6 +185,29 @@
             this.button5.Text = "Export To Text";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(129, 26);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(60, 17);
+            this.radioButton1.TabIndex = 9;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "nm files";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(240, 26);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(70, 17);
+            this.radioButton2.TabIndex = 10;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "other files";
+            this.radioButton2.UseVisualStyleBackColor = true;
             // 
             // Date
             // 
@@ -260,6 +289,16 @@
             this.GLOused.HeaderText = "GLO(used)";
             this.GLOused.Name = "GLOused";
             // 
+            // GAL
+            // 
+            this.GAL.HeaderText = "GAL(visible)";
+            this.GAL.Name = "GAL";
+            // 
+            // GALused
+            // 
+            this.GALused.HeaderText = "GAL(used)";
+            this.GALused.Name = "GALused";
+            // 
             // totalSV
             // 
             this.totalSV.DataPropertyName = "totalSV";
@@ -312,6 +351,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AliceBlue;
             this.ClientSize = new System.Drawing.Size(985, 414);
+            this.Controls.Add(this.radioButton2);
+            this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -344,6 +385,8 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
         private System.Windows.Forms.DataGridViewTextBoxColumn Time;
         private System.Windows.Forms.DataGridViewTextBoxColumn Address;
@@ -357,6 +400,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn GPSused;
         private System.Windows.Forms.DataGridViewTextBoxColumn GLO;
         private System.Windows.Forms.DataGridViewTextBoxColumn GLOused;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GAL;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GALused;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalSV;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalSVused;
         private System.Windows.Forms.DataGridViewTextBoxColumn PRN;
