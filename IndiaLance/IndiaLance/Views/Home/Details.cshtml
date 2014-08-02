@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    <link href="~/CSS/Html5.css" rel="stylesheet" />
+}
+<div id="divid">
+    @{
+        string[] data = (string[])ViewData["itdetails"];
+        }
+    @foreach (var item in data)
+    {
+  <div>@item</div>
+    }
+</div>

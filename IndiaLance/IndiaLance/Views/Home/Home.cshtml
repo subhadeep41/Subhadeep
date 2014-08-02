@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    <link href="~/CSS/Html5.css" rel="stylesheet" />
+}
+<div id="divContainer"> 
+    <div>@Html.ActionLink("Details page test","Details","Home")</div>
+
+        <!-- HTML5 TABLE FORMATTED VIA CSS3-->
+        <table class="formatHTML5" >
+ 
+            <!-- TABLE HEADER-->
+            <thead>
+               <tr><td colspan=3><h2>Please go through the projects and choose wisely..</h2></td></tr>
+                <tr>
+                    <th>Section</th><th>Posts</th><th>Projects</th>
+                </tr>
+            </thead>
+            <!-- TABLE BODY: MAIN CONTENT-->
+            <tbody>
+                <tr class="separator">
+                    <td colspan="3">IT Technologies</td>
+                </tr>
+        @{
+            List<IndiaLance.Models.Commonclass> data = (List<IndiaLance.Models.Commonclass>)ViewData["itdetails"];
+        }
+    @foreach (var item in data)
+    {
+        if(@item.section != "")
+        {
+                <tr>
+                    <td>@item.section</td><td>@item.posts</td><td>@item.projects</td>
+                </tr>
+    }
+    }
+                <!--SEPARATOR ROW USED DIFFERENT STYLE-->
+                <tr class="separator">
+                    <td colspan="3">Design & Media</td>
+                </tr>
+                 @{
+            List<IndiaLance.Models.Commonclass> data1 = (List<IndiaLance.Models.Commonclass>)ViewData["designmedia"];
+        }
+    @foreach (var item in data1)
+    {
+        if(@item.section != "")
+        {
+                <tr>
+                    <td>@item.section</td><td>@item.posts</td><td>@item.projects</td>
+                </tr>
+    }
+    }
+
+                <!--SEPARATOR ROW USED DIFFERENT STYLE-->
+                <tr class="separator">
+                    <td colspan="3">Writing Content & DataEntry</td>
+                </tr>
+                 @{
+            List<IndiaLance.Models.Commonclass> data2 = (List<IndiaLance.Models.Commonclass>)ViewData["dataentry"];
+        }
+    @foreach (var item in data2)
+    {
+       if(@item.section != "")
+        {
+                <tr>
+                    <td>@item.section</td><td>@item.posts</td><td>@item.projects</td>
+                </tr>
+       }
+    }
+                 <!--SEPARATOR ROW USED DIFFERENT STYLE-->
+                <tr class="separator">
+                    <td colspan="3">Engenering Projects</td>
+                </tr>
+                 @{
+            List<IndiaLance.Models.Commonclass> data3 = (List<IndiaLance.Models.Commonclass>)ViewData["engg"];
+        }
+    @foreach (var item in data3)
+    {
+        if(@item.section != "")
+        {
+                <tr>
+                    <td>@item.section</td><td>@item.posts</td><td>@item.projects</td>
+                </tr>
+    }
+    }
+            </tbody>
+ 
+            <!-- TABLE FOOTER-->
+            <tfoot>
+                <tr><td colspan="3">Copyright &#9400 2014 deep technologies ltd.</td></tr>
+            </tfoot>
+        </table>
+</div>
