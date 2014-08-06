@@ -15,7 +15,6 @@ namespace IndiaLance.Controllers
     {
         //
         // GET: /Home/
-        ProjectType obj = new ProjectType();
         List<ProjectType> projectlist1 = new List<ProjectType>();
         List<string> itlist = null;
         List<string> designmedia = null;
@@ -24,7 +23,6 @@ namespace IndiaLance.Controllers
         Commonclass itobj = new Commonclass();
         public ActionResult Home()
         {
-            obj = DataProvider.getdatabyid(1002);
             itlist = DataProvider.getAllITTech();
             designmedia = DataProvider.getAllDesignmedia();
             dataentry = DataProvider.getAllDataEntry();
@@ -84,7 +82,7 @@ namespace IndiaLance.Controllers
                 //string settings = ConfigurationManager.ConnectionStrings["DataProvider"].ToString();
                 //ProjectsContext db = new ProjectsContext(settings);
 
-                return View(obj);
+                return View();
         }
         public ActionResult Details()
         {

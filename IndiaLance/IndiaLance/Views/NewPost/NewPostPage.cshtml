@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "NewPostPage";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<section>
+    <header>
+        <h2>Post a new Project</h2>
+    </header>
+    <article>
+        <aside id="dropdown1id" style="float: left">
+            Select the technology:
+            @using (Html.BeginForm())
+            {
+                @Html.DropDownList("techtypeid", ViewData["techtype"] as List<SelectListItem>)
+                @Html.DropDownList("State", new SelectList(string.Empty, "Value", "Text"), "Please select a State", new { style = "width:250px", @class = "dropdown1" })
+                @Html.DropDownList("city", new SelectList(string.Empty, "Value", "Text"), "Please select a city", new { style = "width:250px", @class = "dropdown1" })
+            }
+        </aside>
+    </article>
+</section>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Dropdownlist Selectedchange event
+        $("#techtypeid").change(function () {
+            $("#State").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetStates")', 
+                dataType: 'json',
+                data: { id: $("#techtypeid").val() },
+                success: function (states) {
+                    $.each(states, function (i, state) {
+                        $("#State").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+                    });
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+                },
+            });
+            return false;
+        })
+    });
+</script>

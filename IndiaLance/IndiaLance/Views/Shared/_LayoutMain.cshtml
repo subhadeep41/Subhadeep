@@ -12,10 +12,10 @@
     <script src="~/Scripts/script.js"></script>
 </head>
 <body>
-    <div class="main">
+    <section class="main">
         <div class="clr">
         </div>
-        <div class="header">
+        <header class="header">
             <div class="logo">
                 <h1>
                     <span class="logo1">@Html.ActionLink("IndiaLance","Home","Home")</span><span class="logo1">&nbsp; </span><span>
@@ -23,26 +23,27 @@
             </div>
             <div class="menu_nav">
                 <ul>
-                    <li class="active">@Html.ActionLink("Home","Home","MyHome")</li>
-                    <li class="active">@Html.ActionLink("Support","Home","MyHome")</li>
-                    <li class="active">@Html.ActionLink("About Us","Home","MyHome")</li>
-                    <li class="active">@Html.ActionLink("Blog","Home","MyHome")</li>
-                    <li class="active">@Html.ActionLink("Contact Us","Home","MyHome")</li>
+                    <li class="active">@Html.ActionLink("Home","Home","Home")</li>
+                    <li class="active">@Html.ActionLink("Support","Home","Home")</li>
+                    <li class="active">@Html.ActionLink("About Us","Home","Home")</li>
+                    <li class="active">@Html.ActionLink("Blog","Home","Home")</li>
+                    <li class="active">@Html.ActionLink("Contact Us","Home","Home")</li>
                 </ul>
                 <div class="clr">
                 </div>
             </div>
             <div class="clr">
             </div>
-        </div>
+        </header>
         <aside>
             <a href="Javascript:window.location.reload(true);" id="HyperLink1">Refresh</a>
             <a href="Javascript:window.print();" id="HyperLink2">Print</a>
             <br />
         </aside>
-        <div>
+        <aside>
             @RenderBody()
-        </div>
-    </div>
+        </aside>
+        <footer>Copyright &#9400 2014 deep technologies ltd.</footer>
+    </section>
 </body>
 </html>
