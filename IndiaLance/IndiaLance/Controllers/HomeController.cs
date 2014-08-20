@@ -15,11 +15,12 @@ namespace IndiaLance.Controllers
     {
         //
         // GET: /Home/
+        //IndiaLanceServiceClient clientobj = new IndiaLanceServiceClient();
         List<ProjectType> projectlist1 = new List<ProjectType>();
         List<string> itlist = null;
         List<string> designmedia = null;
         List<string> dataentry = null;
-        List<String> Engg = null;
+        List<string> Engg = null;
         Commonclass itobj = new Commonclass();
         public ActionResult Home()
         {
@@ -84,6 +85,12 @@ namespace IndiaLance.Controllers
 
                 return View();
         }
+
+        public ActionResult ContactDetails()
+        { 
+        return View();
+        }
+
         public ActionResult Details()
         {
             return View();

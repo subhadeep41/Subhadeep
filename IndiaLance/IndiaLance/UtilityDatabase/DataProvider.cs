@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using IndiaLance.Models;
-
 namespace IndiaLance.UtilityDatabase
 {
     public class DataProvider
     {
-        //get the connection string from web.config
         public static ProjectType getdatabyid(int id)
         {
             ProjectType projects = new ProjectType();
@@ -225,5 +219,50 @@ namespace IndiaLance.UtilityDatabase
                 return itobj;
             }
         }
+
+        public static void InsertJava(JavaSec obj , string tech)
+        {
+            JavaSec objjavasec = new JavaSec();
+            string storeprocedure = "InsertRecordJava";
+            int type1 = 0;
+            switch (tech.Trim())
+            {
+                case "Java":
+                    type1 = 1;
+                    break;
+                case "net":
+                    type1 = 2;
+                    break;
+                case "Oracle":
+                    type1 = 3;
+                    break;
+                case "Python":
+                    type1 = 4;
+                    break;
+                case "SAP":
+                    type1 = 5;
+                    break;
+                case "Android":
+                    type1 = 6;
+                    break;
+            }
+            SqlConnection myConnection = DBUtility.getConnection();
+            using (myConnection)
+            {
+                myConnection.Open();
+                SqlCommand objCommand = new SqlCommand(storeprocedure,myConnection);
+                objCommand.Connection = myConnection;
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.Parameters.Add("@ProjectId", SqlDbType.Int).Value = obj.projectId;
+                objCommand.Parameters.Add("@Amount", SqlDbType.Int).Value = obj.amount;
+                objCommand.Parameters.Add("@Details", SqlDbType.Text).Value = obj.details;
+                objCommand.Parameters.Add("@IsAvail", SqlDbType.VarChar).Value = obj.isValid;
+                objCommand.Parameters.Add("@ittype", SqlDbType.Int).Value = type1;
+                objCommand.ExecuteNonQuery();
+                myConnection.Close();
+            }
+        }
+
+
     }
 }

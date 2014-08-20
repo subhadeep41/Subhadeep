@@ -1,33 +1,61 @@
 ﻿@{
     ViewBag.Title = "NewPostPage";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    <link href="~/CSS/style.css" rel="stylesheet" />
+    <script src="~/Scripts/MicrosoftAjax.js"></script>
+    <script src="~/Scripts/newpage.js"></script>
+    <link href="~/CSS/newpage.css" rel="stylesheet" />
 }
 
-<section>
-    <header>
-        <h2>Post a new Project</h2>
-    </header>
-    <article>
-        <aside id="dropdown1id" style="float: left">
-            Select the technology:
+<section class="formatHTML5">
+    <section id="newpoststage">
+        <aside style="left: 275px" class="fl">
             @using (Html.BeginForm())
             {
-                @Html.DropDownList("techtypeid", ViewData["techtype"] as List<SelectListItem>)
-                @Html.DropDownList("State", new SelectList(string.Empty, "Value", "Text"), "Please select a State", new { style = "width:250px", @class = "dropdown1" })
-                @Html.DropDownList("city", new SelectList(string.Empty, "Value", "Text"), "Please select a city", new { style = "width:250px", @class = "dropdown1" })
+                <h1>Select the Domain:</h1>
+                @Html.DropDownList("techtypeid", ViewData["techtype"] as List<SelectListItem>, new { style = "width:250px", @class = "fl" })<br />
+                <br />
+                <br />
+                <h1>Select the Technology:</h1>
+                @Html.DropDownList("State", new SelectList(string.Empty, "Value", "Text"), "Please select a Technology", new { style = "width:250px", @class = "fl" })<br />
+                <br />
+                <br />
+                <h1>Select the Amount to set:</h1>
+            @Html.TextBox("amountid", null, new { style = "width:80px", @class = "fl", placeholder = " ₹ Amount" })
             }
+            
         </aside>
-    </article>
+        <aside style="left: 275px" class="fl">
+            <h1>Details about the project:</h1>
+            @Html.TextArea("detailsid", null, new { style = "width: 667px; height: 213px;", @class = "fr", placeholder = "Please mention about the project in minimum of about 100 words. And also attach if any documents required." })
+        </aside>
+        <aside class="fl">
+            <input type="submit" value="Proceed" onclick="createnew();" />
+            <input type="submit" value="Clear" onclick="clearall();" />
+        </aside>
+    </section>
+    <aside id="conf" class="hide fl">
+        Project Description:<span id="descriptionid"></span><br />
+        Domain: <span id="domainid"></span>
+        Technology: <span id="techid"></span>
+        Amount set: <span id="amountid"></span>
+        <br />
+        <label id="succedid" class="fl" style="width: 800px; height: 50px;">Succeeded !!</label>
+        <aside id="continueid">@Html.ActionLink("Continue to Dashboard ", "Home", "Home", null, new { @class = "continueclass fr" })
+            @Html.ActionLink("Post a new project", "NewPostPage", "NewPost", null, new { @class = "continueclass fr" })
+        </aside>
+    </aside>
+
 </section>
 
-<script type="text/javascript">
+<script>
     $(document).ready(function () {
         //Dropdownlist Selectedchange event
         $("#techtypeid").change(function () {
             $("#State").empty();
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("GetStates")', 
+                url: '@Url.Action("GetStates")',
                 dataType: 'json',
                 data: { id: $("#techtypeid").val() },
                 success: function (states) {
@@ -42,5 +70,10 @@
             });
             return false;
         })
+        $("#State").prop('disabled', true);
+        $("#techtypeid").change(function () {
+            $("#State").prop('disabled', false);
+        })
+        $("#amountid").prop('required', true);
     });
 </script>

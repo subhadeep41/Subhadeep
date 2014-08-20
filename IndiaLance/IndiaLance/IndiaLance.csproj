@@ -52,6 +52,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -117,18 +118,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\BlogController.cs" />
+    <Compile Include="Controllers\DesignMediaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ITPagesController.cs" />
     <Compile Include="Controllers\NewPostController.cs" />
     <Compile Include="Controllers\OpeningPageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Projectsdata.cs" />
-    <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UtilityDatabase\DataProvider.cs" />
     <Compile Include="UtilityDatabase\DBUtility.cs" />
-    <Compile Include="UtilityDatabase\newpost.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -138,12 +140,17 @@
     <Content Include="App_Data\MyDatabase_log.ldf">
       <DependentUpon>MyDatabase.mdf</DependentUpon>
     </Content>
+    <Content Include="CSS\contact.css" />
     <Content Include="CSS\Html5.css" />
+    <Content Include="CSS\newpage.css" />
     <Content Include="CSS\style.css" />
     <Content Include="Global.asax" />
     <Content Include="Images\home1wall.jpg" />
     <Content Include="Images\homewall.jpg" />
+    <Content Include="Images\logo.JPG" />
     <Content Include="Scripts\jquery-1.8.0.min.js" />
+    <Content Include="Scripts\MicrosoftAjax.js" />
+    <Content Include="Scripts\newpage.js" />
     <Content Include="Scripts\script.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -167,6 +174,7 @@
     <Content Include="Views\Home\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +182,45 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\NewPost\NewPostPage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\ContactDetails.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ITPages\Java.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Blog\LiveChat.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ITPages\net.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ITPages\Oracle.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ITPages\Python.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ITPages\SAP.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ITPages\Android.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DesignMedia\Design.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DesignMedia\Maya.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DesignMedia\Canvas.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DesignMedia\imaging.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

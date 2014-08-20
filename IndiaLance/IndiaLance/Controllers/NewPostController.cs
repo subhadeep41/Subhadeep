@@ -4,14 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services;
+using IndiaLance.Models;
+using IndiaLance.UtilityDatabase;
 
 namespace IndiaLance.Controllers
 {
     public class NewPostController : Controller
     {
-        //
-        // GET: /NewPost/
-
+        List<string> itlist = null;
+        List<string> designmedia = null;
+        List<string> dataentry = null;
+        List<string> Engg = null;
+        //IndiaLanceServiceClient clientobj = new IndiaLanceServiceClient();
         public ActionResult NewPostPage()
         {
             List<SelectListItem> li = new List<SelectListItem>();
@@ -26,19 +30,63 @@ namespace IndiaLance.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult GetStates(string id)
         {
+            itlist = DataProvider.getAllITTech();
+            designmedia = DataProvider.getAllDesignmedia();
+            dataentry = DataProvider.getAllDataEntry();
+            Engg = DataProvider.getAllEngg();
             List<SelectListItem> states = new List<SelectListItem>();
             switch (id)
             {
                 case "1":
                     states.Add(new SelectListItem { Text = "Select", Value = "0" });
-                    states.Add(new SelectListItem { Text = "ANDAMAN & NIKOBAR ISLANDS", Value = "1" });
-                    states.Add(new SelectListItem { Text = "ANDHRA PRADESH", Value = "2" });
-                    states.Add(new SelectListItem { Text = "ARUNACHAL PRADESH", Value = "3" });
-                    states.Add(new SelectListItem { Text = "ASSAM", Value = "4" });
+                    for (int i = 0; i < itlist.Count; i++)
+                    {
+                        if (itlist[i] != "")
+                        states.Add(new SelectListItem { Text = itlist[i].ToString(), Value = Convert.ToString(i+1) });
+                    }
+                    break;
+                case "2":
+                    states.Add(new SelectListItem { Text = "Select", Value = "0" });
+                    for (int i = 0; i < designmedia.Count; i++)
+                    {
+                        if (designmedia[i] != "")
+                        states.Add(new SelectListItem { Text = designmedia[i].ToString(), Value = Convert.ToString(i + 1) });
+                    }
+                    break;
+                case "3":
+                    states.Add(new SelectListItem { Text = "Select", Value = "0" });
+                    for (int i = 0; i < dataentry.Count; i++)
+                    {
+                        if (dataentry[i] != "")
+                        states.Add(new SelectListItem { Text = dataentry[i].ToString(), Value = Convert.ToString(i + 1) });
+                    }
+                    break;
+                case "4":
+                    states.Add(new SelectListItem { Text = "Select", Value = "0" });
+                    for (int i = 0; i < Engg.Count; i++)
+                    {
+                        if (Engg[i] != "")
+                        {
+                            states.Add(new SelectListItem { Text = Engg[i].ToString(), Value = Convert.ToString(i + 1) });
+                        }
+                    }
                     break;
             }
             return Json(new SelectList(states, "Value", "Text"));
         }
 
+        [AcceptVerbs(HttpVerbs.Post)]
+        public void getdatait(string domain, string techtype, int id,int amount, string details, string isvalid)
+        {
+            if (domain == "IT Technology")
+            {
+                JavaSec obj1 = new JavaSec();
+                obj1.projectId = id;
+                obj1.amount = amount;
+                obj1.details = details;
+                obj1.isValid = isvalid;
+                DataProvider.InsertJava(obj1, techtype);
+            }
+        }
     }
 }

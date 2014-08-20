@@ -12,7 +12,7 @@
             <thead>
                <tr><td colspan=3><h2>Please go through the projects and choose wisely..</h2></td></tr>
                 <tr>
-                    <th>Section</th><th>Posts</th><th>Projects</th>
+                    <th>Section</th><th>Posts</th><th>Latest project</th>
                 </tr>
             </thead>
             <!-- TABLE BODY: MAIN CONTENT-->
@@ -27,8 +27,9 @@
     {
         if(@item.section != "")
         {
+            var trimmedviews = @item.section.Trim();
                 <tr>
-                    <td>@item.section</td><td>@item.posts</td><td>@item.projects</td>
+                    <td>@Html.ActionLink(@item.section,trimmedviews,"ITPages")</td><td>@item.posts</td><td>@item.projects</td>
                 </tr>
     }
     }
@@ -43,8 +44,9 @@
     {
         if(@item.section != "")
         {
+             var trimmedviews = @item.section.Trim();
                 <tr>
-                    <td>@item.section</td><td>@item.posts</td><td>@item.projects</td>
+                    <td>@Html.ActionLink(@item.section,trimmedviews,"DesignMedia")</td><td>@item.posts</td><td>@item.projects</td>
                 </tr>
     }
     }
