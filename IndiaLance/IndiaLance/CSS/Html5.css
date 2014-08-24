@@ -125,7 +125,6 @@
 	width:191px;
 	text-decoration:none;
 	text-align:center;
-	text-shadow:4px 4px 1px #287ace;
 }
 .continueclass:hover {
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #4197ee), color-stop(1, #79bbff) );

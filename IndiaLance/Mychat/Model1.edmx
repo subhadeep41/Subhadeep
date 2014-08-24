@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MyDatabase1Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="MyDatabase1ModelStoreContainer">
+          <EntitySet Name="tbl_Conversation" EntityType="MyDatabase1Model.Store.tbl_Conversation" store:Type="Tables" store:Schema="dbo" store:Name="tbl_Conversation">
+            <DefiningQuery>SELECT 
+      [tbl_Conversation].[ConID] AS [ConID], 
+      [tbl_Conversation].[ConnectionIDUser] AS [ConnectionIDUser], 
+      [tbl_Conversation].[ConnectionIDAdmin] AS [ConnectionIDAdmin], 
+      [tbl_Conversation].[UserGroup] AS [UserGroup], 
+      [tbl_Conversation].[Msg] AS [Msg], 
+      [tbl_Conversation].[StartTime] AS [StartTime], 
+      [tbl_Conversation].[EndTime] AS [EndTime], 
+      [tbl_Conversation].[MsgDate] AS [MsgDate], 
+      [tbl_Conversation].[MsgDuration] AS [MsgDuration], 
+      [tbl_Conversation].[UserID] AS [UserID], 
+      [tbl_Conversation].[AdminID] AS [AdminID]
+      FROM [dbo].[tbl_Conversation] AS [tbl_Conversation]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tbl_User" EntityType="MyDatabase1Model.Store.tbl_User" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'MyDatabase1.dbo.tbl_Conversation' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="tbl_Conversation">
+          <Key>
+            <PropertyRef Name="ConID" />
+          </Key>
+          <Property Name="ConID" Type="int" Nullable="false" />
+          <Property Name="ConnectionIDUser" Type="nchar" MaxLength="100" />
+          <Property Name="ConnectionIDAdmin" Type="nchar" MaxLength="100" />
+          <Property Name="UserGroup" Type="nchar" MaxLength="50" />
+          <Property Name="Msg" Type="ntext" />
+          <Property Name="StartTime" Type="nchar" MaxLength="50" />
+          <Property Name="EndTime" Type="nchar" MaxLength="50" />
+          <Property Name="MsgDate" Type="nchar" MaxLength="50" />
+          <Property Name="MsgDuration" Type="nchar" MaxLength="50" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="AdminID" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nchar" MaxLength="50" />
+          <Property Name="Password" Type="nchar" MaxLength="50" />
+          <Property Name="AdminCode" Type="int" />
+        </EntityType>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MyDatabase1Model" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MyDatabase1Entities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_Conversation" EntityType="MyDatabase1Model.tbl_Conversation" />
+          <EntitySet Name="tbl_User" EntityType="MyDatabase1Model.tbl_User" />
+        </EntityContainer>
+        <EntityType Name="tbl_Conversation">
+          <Key>
+            <PropertyRef Name="ConID" />
+          </Key>
+          <Property Name="ConID" Type="Int32" Nullable="false" />
+          <Property Name="ConnectionIDUser" Type="String" MaxLength="100" Unicode="true" FixedLength="true" />
+          <Property Name="ConnectionIDAdmin" Type="String" MaxLength="100" Unicode="true" FixedLength="true" />
+          <Property Name="UserGroup" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="Msg" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="StartTime" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="EndTime" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="MsgDate" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="MsgDuration" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="AdminID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbl_User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="Password" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="AdminCode" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MyDatabase1ModelStoreContainer" CdmEntityContainer="MyDatabase1Entities">
+          <EntitySetMapping Name="tbl_Conversation">
+            <EntityTypeMapping TypeName="MyDatabase1Model.tbl_Conversation">
+              <MappingFragment StoreEntitySet="tbl_Conversation">
+                <ScalarProperty Name="ConID" ColumnName="ConID" />
+                <ScalarProperty Name="ConnectionIDUser" ColumnName="ConnectionIDUser" />
+                <ScalarProperty Name="ConnectionIDAdmin" ColumnName="ConnectionIDAdmin" />
+                <ScalarProperty Name="UserGroup" ColumnName="UserGroup" />
+                <ScalarProperty Name="Msg" ColumnName="Msg" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="MsgDate" ColumnName="MsgDate" />
+                <ScalarProperty Name="MsgDuration" ColumnName="MsgDuration" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_User">
+            <EntityTypeMapping TypeName="MyDatabase1Model.tbl_User">
+              <MappingFragment StoreEntitySet="tbl_User">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="AdminCode" ColumnName="AdminCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

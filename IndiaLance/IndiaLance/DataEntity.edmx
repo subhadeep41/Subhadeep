@@ -1,0 +1,383 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MyDatabase1Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="MyDatabase1ModelStoreContainer">
+          <EntitySet Name="DataEntry" EntityType="MyDatabase1Model.Store.DataEntry" store:Type="Tables" store:Schema="dbo" store:Name="DataEntry">
+            <DefiningQuery>SELECT 
+      [DataEntry].[ID] AS [ID], 
+      [DataEntry].[Posts] AS [Posts], 
+      [DataEntry].[Projects] AS [Projects]
+      FROM [dbo].[DataEntry] AS [DataEntry]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="DesignMedia" EntityType="MyDatabase1Model.Store.DesignMedia" store:Type="Tables" store:Schema="dbo" store:Name="DesignMedia">
+            <DefiningQuery>SELECT 
+      [DesignMedia].[ID] AS [ID], 
+      [DesignMedia].[Posts] AS [Posts], 
+      [DesignMedia].[Projects] AS [Projects]
+      FROM [dbo].[DesignMedia] AS [DesignMedia]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Engg" EntityType="MyDatabase1Model.Store.Engg" store:Type="Tables" store:Schema="dbo" store:Name="Engg">
+            <DefiningQuery>SELECT 
+      [Engg].[ID] AS [ID], 
+      [Engg].[Posts] AS [Posts], 
+      [Engg].[Projects] AS [Projects]
+      FROM [dbo].[Engg] AS [Engg]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ITTech" EntityType="MyDatabase1Model.Store.ITTech" store:Type="Tables" store:Schema="dbo" store:Name="ITTech">
+            <DefiningQuery>SELECT 
+      [ITTech].[Posts] AS [Posts], 
+      [ITTech].[Projects] AS [Projects], 
+      [ITTech].[ID] AS [ID]
+      FROM [dbo].[ITTech] AS [ITTech]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ITTechDetails" EntityType="MyDatabase1Model.Store.ITTechDetails" store:Type="Tables" store:Schema="dbo" store:Name="ITTechDetails">
+            <DefiningQuery>SELECT 
+      [ITTechDetails].[projectid] AS [projectid], 
+      [ITTechDetails].[amount] AS [amount], 
+      [ITTechDetails].[details] AS [details], 
+      [ITTechDetails].[isavail] AS [isavail], 
+      [ITTechDetails].[ittype] AS [ittype]
+      FROM [dbo].[ITTechDetails] AS [ITTechDetails]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Projects1" EntityType="MyDatabase1Model.Store.Projects1" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbl_Conversation" EntityType="MyDatabase1Model.Store.tbl_Conversation" store:Type="Tables" store:Schema="dbo" store:Name="tbl_Conversation">
+            <DefiningQuery>SELECT 
+      [tbl_Conversation].[ConID] AS [ConID], 
+      [tbl_Conversation].[ConnectionIDUser] AS [ConnectionIDUser], 
+      [tbl_Conversation].[ConnectionIDAdmin] AS [ConnectionIDAdmin], 
+      [tbl_Conversation].[UserGroup] AS [UserGroup], 
+      [tbl_Conversation].[Msg] AS [Msg], 
+      [tbl_Conversation].[StartTime] AS [StartTime], 
+      [tbl_Conversation].[EndTime] AS [EndTime], 
+      [tbl_Conversation].[MsgDate] AS [MsgDate], 
+      [tbl_Conversation].[MsgDuration] AS [MsgDuration], 
+      [tbl_Conversation].[UserID] AS [UserID], 
+      [tbl_Conversation].[AdminID] AS [AdminID]
+      FROM [dbo].[tbl_Conversation] AS [tbl_Conversation]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tbl_User" EntityType="MyDatabase1Model.Store.tbl_User" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'MyDatabase1.dbo.DataEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="DataEntry">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Posts" Type="int" />
+          <Property Name="Projects" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'MyDatabase1.dbo.DesignMedia' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="DesignMedia">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Posts" Type="int" />
+          <Property Name="Projects" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'MyDatabase1.dbo.Engg' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="Engg">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Posts" Type="int" />
+          <Property Name="Projects" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'MyDatabase1.dbo.ITTech' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="ITTech">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="Posts" Type="int" />
+          <Property Name="Projects" Type="nchar" MaxLength="50" />
+          <Property Name="ID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'MyDatabase1.dbo.ITTechDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="ITTechDetails">
+          <Key>
+            <PropertyRef Name="projectid" />
+            <PropertyRef Name="isavail" />
+            <PropertyRef Name="ittype" />
+          </Key>
+          <Property Name="projectid" Type="int" Nullable="false" />
+          <Property Name="amount" Type="int" />
+          <Property Name="details" Type="nchar" MaxLength="150" />
+          <Property Name="isavail" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="ittype" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Projects1">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ITTech" Type="nchar" MaxLength="10" />
+          <Property Name="DesignMedia" Type="nchar" MaxLength="10" />
+          <Property Name="DataEntry" Type="nchar" MaxLength="10" />
+          <Property Name="Engg" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'MyDatabase1.dbo.tbl_Conversation' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="tbl_Conversation">
+          <Key>
+            <PropertyRef Name="ConID" />
+          </Key>
+          <Property Name="ConID" Type="int" Nullable="false" />
+          <Property Name="ConnectionIDUser" Type="nchar" MaxLength="100" />
+          <Property Name="ConnectionIDAdmin" Type="nchar" MaxLength="100" />
+          <Property Name="UserGroup" Type="nchar" MaxLength="50" />
+          <Property Name="Msg" Type="ntext" />
+          <Property Name="StartTime" Type="nchar" MaxLength="50" />
+          <Property Name="EndTime" Type="nchar" MaxLength="50" />
+          <Property Name="MsgDate" Type="nchar" MaxLength="50" />
+          <Property Name="MsgDuration" Type="nchar" MaxLength="50" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="AdminID" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nchar" MaxLength="50" />
+          <Property Name="Password" Type="nchar" MaxLength="50" />
+          <Property Name="AdminCode" Type="int" />
+        </EntityType>
+        <Function Name="InsertRecordJava" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProjectId" Type="int" Mode="In" />
+          <Parameter Name="Amount" Type="int" Mode="In" />
+          <Parameter Name="Details" Type="varchar" Mode="In" />
+          <Parameter Name="IsAvail" Type="varchar" Mode="In" />
+          <Parameter Name="ittype" Type="int" Mode="In" />
+        </Function>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MyDatabase1Model" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MyDatabase1Entities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="DataEntries" EntityType="MyDatabase1Model.DataEntry" />
+          <EntitySet Name="DesignMedias" EntityType="MyDatabase1Model.DesignMedia" />
+          <EntitySet Name="Enggs" EntityType="MyDatabase1Model.Engg" />
+          <EntitySet Name="ITTeches" EntityType="MyDatabase1Model.ITTech" />
+          <EntitySet Name="ITTechDetails" EntityType="MyDatabase1Model.ITTechDetail" />
+          <EntitySet Name="Projects1" EntityType="MyDatabase1Model.Projects1" />
+          <EntitySet Name="tbl_Conversation" EntityType="MyDatabase1Model.tbl_Conversation" />
+          <EntitySet Name="tbl_User" EntityType="MyDatabase1Model.tbl_User" />
+          <FunctionImport Name="InsertRecordJava">
+            <Parameter Name="ProjectId" Mode="In" Type="Int32" />
+            <Parameter Name="Amount" Mode="In" Type="Int32" />
+            <Parameter Name="Details" Mode="In" Type="String" />
+            <Parameter Name="IsAvail" Mode="In" Type="String" />
+            <Parameter Name="ittype" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="DataEntry">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Posts" Type="Int32" />
+          <Property Name="Projects" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="DesignMedia">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Posts" Type="Int32" />
+          <Property Name="Projects" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="Engg">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Posts" Type="Int32" />
+          <Property Name="Projects" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="ITTech">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="Posts" Type="Int32" />
+          <Property Name="Projects" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ITTechDetail">
+          <Key>
+            <PropertyRef Name="projectid" />
+            <PropertyRef Name="isavail" />
+            <PropertyRef Name="ittype" />
+          </Key>
+          <Property Name="projectid" Type="Int32" Nullable="false" />
+          <Property Name="amount" Type="Int32" />
+          <Property Name="details" Type="String" MaxLength="150" Unicode="true" FixedLength="true" />
+          <Property Name="isavail" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="ittype" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Projects1">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ITTech" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="DesignMedia" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="DataEntry" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="Engg" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="tbl_Conversation">
+          <Key>
+            <PropertyRef Name="ConID" />
+          </Key>
+          <Property Name="ConID" Type="Int32" Nullable="false" />
+          <Property Name="ConnectionIDUser" Type="String" MaxLength="100" Unicode="true" FixedLength="true" />
+          <Property Name="ConnectionIDAdmin" Type="String" MaxLength="100" Unicode="true" FixedLength="true" />
+          <Property Name="UserGroup" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="Msg" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="StartTime" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="EndTime" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="MsgDate" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="MsgDuration" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="AdminID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbl_User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="Password" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="AdminCode" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MyDatabase1ModelStoreContainer" CdmEntityContainer="MyDatabase1Entities">
+          <EntitySetMapping Name="DataEntries">
+            <EntityTypeMapping TypeName="MyDatabase1Model.DataEntry">
+              <MappingFragment StoreEntitySet="DataEntry">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Posts" ColumnName="Posts" />
+                <ScalarProperty Name="Projects" ColumnName="Projects" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DesignMedias">
+            <EntityTypeMapping TypeName="MyDatabase1Model.DesignMedia">
+              <MappingFragment StoreEntitySet="DesignMedia">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Posts" ColumnName="Posts" />
+                <ScalarProperty Name="Projects" ColumnName="Projects" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enggs">
+            <EntityTypeMapping TypeName="MyDatabase1Model.Engg">
+              <MappingFragment StoreEntitySet="Engg">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Posts" ColumnName="Posts" />
+                <ScalarProperty Name="Projects" ColumnName="Projects" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ITTeches">
+            <EntityTypeMapping TypeName="MyDatabase1Model.ITTech">
+              <MappingFragment StoreEntitySet="ITTech">
+                <ScalarProperty Name="Posts" ColumnName="Posts" />
+                <ScalarProperty Name="Projects" ColumnName="Projects" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ITTechDetails">
+            <EntityTypeMapping TypeName="MyDatabase1Model.ITTechDetail">
+              <MappingFragment StoreEntitySet="ITTechDetails">
+                <ScalarProperty Name="projectid" ColumnName="projectid" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="details" ColumnName="details" />
+                <ScalarProperty Name="isavail" ColumnName="isavail" />
+                <ScalarProperty Name="ittype" ColumnName="ittype" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects1">
+            <EntityTypeMapping TypeName="MyDatabase1Model.Projects1">
+              <MappingFragment StoreEntitySet="Projects1">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ITTech" ColumnName="ITTech" />
+                <ScalarProperty Name="DesignMedia" ColumnName="DesignMedia" />
+                <ScalarProperty Name="DataEntry" ColumnName="DataEntry" />
+                <ScalarProperty Name="Engg" ColumnName="Engg" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Conversation">
+            <EntityTypeMapping TypeName="MyDatabase1Model.tbl_Conversation">
+              <MappingFragment StoreEntitySet="tbl_Conversation">
+                <ScalarProperty Name="ConID" ColumnName="ConID" />
+                <ScalarProperty Name="ConnectionIDUser" ColumnName="ConnectionIDUser" />
+                <ScalarProperty Name="ConnectionIDAdmin" ColumnName="ConnectionIDAdmin" />
+                <ScalarProperty Name="UserGroup" ColumnName="UserGroup" />
+                <ScalarProperty Name="Msg" ColumnName="Msg" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="MsgDate" ColumnName="MsgDate" />
+                <ScalarProperty Name="MsgDuration" ColumnName="MsgDuration" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_User">
+            <EntityTypeMapping TypeName="MyDatabase1Model.tbl_User">
+              <MappingFragment StoreEntitySet="tbl_User">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="AdminCode" ColumnName="AdminCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="InsertRecordJava" FunctionName="MyDatabase1Model.Store.InsertRecordJava" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
