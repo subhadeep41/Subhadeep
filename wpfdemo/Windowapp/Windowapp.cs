@@ -21,10 +21,22 @@ namespace Windowapp
         int ygsv = 34;
         int counter = 0;
         int zdaoccured = 0;
+        int rmcoccured = 0;
         List<User> Users = null;
+        bool settypeoffile = true;
+
         public Windowapp()
         {
             InitializeComponent();
+        }
+
+        private void outputfileschecked(object sender, EventArgs e)
+        {
+            settypeoffile = false;
+        }
+        private void nmfileschecked(object sender, EventArgs e)
+        {
+            settypeoffile = true;
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -39,6 +51,9 @@ namespace Windowapp
                         if ((System.IO.Path.GetFileName(pathoffile)).Contains(".L") || (System.IO.Path.GetFileName(pathoffile)).Contains(".l")) { filetype = "Ltype"; }
                         if ((System.IO.Path.GetFileName(pathoffile)).Contains(".P") || (System.IO.Path.GetFileName(pathoffile)).Contains(".p")) { filetype = "Ptype"; }
                         if ((System.IO.Path.GetFileName(pathoffile)).Contains(".X") || (System.IO.Path.GetFileName(pathoffile)).Contains(".x")) { filetype = "Xtype"; }
+                        if ((System.IO.Path.GetFileName(pathoffile)).Contains(".W") || (System.IO.Path.GetFileName(pathoffile)).Contains(".w")) { filetype = "Wtype"; }
+                        if ((System.IO.Path.GetFileName(pathoffile)).Contains(".Y") || (System.IO.Path.GetFileName(pathoffile)).Contains(".y")) { filetype = "Ytype"; }
+                        if ((System.IO.Path.GetFileName(pathoffile)).Contains(".G") || (System.IO.Path.GetFileName(pathoffile)).Contains(".g")) { filetype = "Gtype"; }
                         string[] partsnew = new string[100];
                         int count = 0;
                         
@@ -49,11 +64,11 @@ namespace Windowapp
                             if (line == null)
                             {
                                 StringBuilder line1 = new StringBuilder();
-                                for (int i = 0; i < 98; i++)
+                                for (int i = 0; i < 99; i++)
                                 {
                                     line1.Append(partsnew[i] + ",");
                                 }
-                                line1.Append(partsnew[98]);
+                                line1.Append(partsnew[99]);
                                 finalline.Append(line1);
                                 Users.Add(new User(Convert.ToString(finalline)));
                                 break;
@@ -78,27 +93,36 @@ namespace Windowapp
                                 {
                                     partsnew[2] = parts[2]; partsnew[5] = parts[4];
                                     partsnew[6] = parts[6]; partsnew[9] = parts[9];
-                                    if (filetype == "Ptype") { partsnew[14] = "00"; } 
+                                    if ((filetype == "Ptype") || (filetype == "Wtype") || (filetype == "Gtype") || (settypeoffile == false)) { partsnew[14] = "00"; } 
                                     else { partsnew[14] = parts[7]; }
-                                    if (filetype == "Ltype") { partsnew[12] = "00"; } 
+                                    if ((filetype == "Ltype")||(filetype == "Gtype")) { partsnew[12] = "00"; } 
                                     else { partsnew[12] = parts[7]; }
                                 }
-                                if ((GPGL == "$GLGSA") || (GPGL == "$GPGSA") || ((GPGL == "$GNGSA")))
+                                if ((GPGL == "$GLGSA") || (GPGL == "$GPGSA") || (GPGL == "$GNGSA") || (GPGL == "$GAGSA"))
                                 {
                                     if (GPGL == "$GNGSA") { gsa = gsa + 1; }
                                     partsnew[15] = parts[15];
                                     partsnew[16] = parts[16]; partsnew[17] = parts[17];
                                     int pos = Array.IndexOf(parts, "");
                                     int x = pos - 3;
+                                    partsnew[99] = Convert.ToString(x);
                                     if (gsa == 1)
                                     {
-                                        if (filetype == "Xtype") { partsnew[12] = Convert.ToString(x); }
+                                        if ((filetype == "Xtype") || (filetype == "Wtype")) { partsnew[12] = Convert.ToString(x);
+                                        partsnew[99] = Convert.ToString(x); }
                                     }
                                     if (gsa == 2)
                                     {
-                                        if (filetype == "Xtype") { partsnew[14] = Convert.ToString(x); }
+                                        if ((filetype == "Xtype") || (filetype == "Wtype") || (filetype == "Ytype"))
+                                        {
+                                            partsnew[14] = Convert.ToString(x); 
+                                            partsnew[99] = Convert.ToString(x);
+                                        }
                                         gsa = 0;
                                     }
+                                    if ((filetype == "Ptype") || (filetype == "Ltype") || (filetype == "Xtype") || (settypeoffile == false)) { partsnew[99] = "00"; }
+                                    if (filetype == "Wtype") { partsnew[14] = "00"; }
+                                    if ((filetype == "Ytype") || (filetype == "Ytype")) { partsnew[12] = "00"; }
                                 }
                                 if ((GPGL == "$GLZDA") || (GPGL == "$GPZDA") || (GPGL == "$GNZDA"))
                                 {
@@ -110,11 +134,13 @@ namespace Windowapp
                                     partsnew[0] = Convert.ToString(sb);
                                     zdaoccured = 1;
                                 }
-                                if (GPGL == "$GPGSV")
+                                if ((GPGL == "$GPGSV") || (GPGL == "$GLGSV"))
                                 {
                                     if (gsv == 0)
                                     {
                                         partsnew[11] = parts[3];
+                                        if ((filetype == "Ytype") || (filetype == "Gtype"))
+                                        {partsnew[11] = "00";}
                                     }
                                     gsv = gsv + 1;
                                 }
@@ -126,6 +152,14 @@ namespace Windowapp
                                 {
                                     partsnew[13] = parts[3];
                                 }
+                                if ((GPGL == "$GAGSV")||(GPGL == "$GPGSV"))
+                                {
+                                    partsnew[13] = parts[3];
+                                    partsnew[98] = parts[3];
+                                }
+                                if ((filetype == "Wtype") || (filetype == "Gtype") || (settypeoffile == false))
+                                { partsnew[13] = "00"; }
+                                if ((filetype == "Ptype") || (filetype == "Ltype") || (filetype == "Xtype") || (settypeoffile == false)) { partsnew[98] = "00"; }
                                 if ((GPGL.Contains("GSV")) && (counter < 5))
                                 {
                                     counter = counter + 1;
@@ -154,23 +188,27 @@ namespace Windowapp
                                     ygsv = 34;
                                     counter = 0;
                                 }
+                                if (GPGL.Contains("RMC")) {
+                                    rmcoccured = 1;
+                                }
                                 #endregion
                                 parts = null;
                             }
                                 count = count + 1;
-                                if (zdaoccured == 1)
+                                if ((zdaoccured == 1) || (rmcoccured == 1))
                             {
                                 StringBuilder line1 = new StringBuilder();
-                                for (int i = 0; i < 98; i++)
+                                for (int i = 0; i < 99; i++)
                                 {
                                     line1.Append(partsnew[i] + ",");
                                 }
-                                line1.Append(partsnew[98]);
+                                line1.Append(partsnew[99]);
                                 finalline.Append(line1);
                                 Users.Add(new User(Convert.ToString(finalline)));
                                 finalline = new StringBuilder();
                                 partsnew = new string[100];
                                 zdaoccured = 0;
+                                rmcoccured = 0;
                             }
                         }
                         databind(Users);
@@ -245,8 +283,8 @@ namespace Windowapp
                     this.GPSused = parts[12];
                     this.GLO = parts[13];
                     this.GLOused = parts[14];
-                    this.GAL = "00";
-                    this.GALused = "00";
+                    this.GAL = parts[98];
+                    this.GALused = parts[99];
                     this.latitude = parts[2]; this.quality = "1";
                     this.longitude = parts[5]; this.altitude = parts[9];
                     this.pdop = parts[15]; this.hdop = parts[16];
@@ -254,8 +292,8 @@ namespace Windowapp
                     this.vdop = xx[0];
                     this.Date = parts[0];
                     this.Time = parts[1];
-                    this.totalSV = Convert.ToString(Convert.ToInt32(this.GPS) + Convert.ToInt32(this.GLO));
-                    this.totalSVused = Convert.ToString(Convert.ToInt32(this.GPSused) + Convert.ToInt32(this.GLOused));
+                    this.totalSV = Convert.ToString(Convert.ToInt32(this.GPS) + Convert.ToInt32(this.GLO) + Convert.ToInt32(this.GAL));
+                    this.totalSVused = Convert.ToString(Convert.ToInt32(this.GPSused) + Convert.ToInt32(this.GLOused) + Convert.ToInt32(this.GALused));
                     if (parts[18].Length < 3) { parts[18] = "0" + parts[18]; }
                     if (parts[18].Length < 3) { parts[18] = "0" + parts[18]; }
                     if (parts[19].Length < 3) { parts[19] = "0" + parts[19]; }
