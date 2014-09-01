@@ -160,7 +160,7 @@ namespace Windowapp
                                 if ((filetype == "Wtype") || (filetype == "Gtype") || (settypeoffile == false))
                                 { partsnew[13] = "00"; }
                                 if ((filetype == "Ptype") || (filetype == "Ltype") || (filetype == "Xtype") || (settypeoffile == false)) { partsnew[98] = "00"; }
-                                if ((GPGL.Contains("GSV")) && (counter < 5))
+                                if ((GPGL.Contains("GSV")))
                                 {
                                     counter = counter + 1;
                                     int j = 4;
@@ -182,13 +182,17 @@ namespace Windowapp
                                     igsv = ygsv;
                                     ygsv = ygsv + 16;
                                 }
-                                else
-                                {
-                                    igsv = 18;
-                                    ygsv = 34;
-                                    counter = 0;
-                                }
                                 if (GPGL.Contains("RMC")) {
+                                    partsnew[1] = parts[1];
+                                    StringBuilder sb = new StringBuilder();
+                                    var date1 = parts[9].ToString();
+                                    for (int i = 0; i < date1.Length; i++)
+                                    {
+                                        if (i % 2 == 0)
+                                            sb.Append(' ');
+                                        sb.Append(date1[i]);
+                                    }
+                                    partsnew[0] = Convert.ToString(sb);
                                     rmcoccured = 1;
                                 }
                                 #endregion
@@ -209,6 +213,9 @@ namespace Windowapp
                                 partsnew = new string[100];
                                 zdaoccured = 0;
                                 rmcoccured = 0;
+                                igsv = 18;
+                                ygsv = 34;
+                                counter = 0;
                             }
                         }
                         databind(Users);
