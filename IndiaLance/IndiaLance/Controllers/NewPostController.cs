@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Services;
+using System.Web.Script.Serialization;
 using IndiaLance.Models;
 using IndiaLance.UtilityDatabase;
 
@@ -76,17 +74,33 @@ namespace IndiaLance.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public void getdatait(string domain, string techtype, int id,int amount, string details, string isvalid)
+        public void getdatait(string domain, string techtype, int id,int amount, string details, string isvalid, string attachments)
         {
-            if (domain == "IT Technology")
+            try
             {
-                JavaSec obj1 = new JavaSec();
-                obj1.projectId = id;
-                obj1.amount = amount;
-                obj1.details = details;
-                obj1.isValid = isvalid;
-                DataProvider.InsertJava(obj1, techtype);
+                if (domain == "IT Technology")
+                {
+                    var js = new JavaScriptSerializer();
+                    var result = js.DeserializeObject(attachments);
+                    int attachid = Convert.ToInt32(((object[])(((object[])(result))[0]))[1]);
+                    string attachdata = Convert.ToString(((object[])(((object[])(result))[0]))[0]);
+                    JavaSec obj1 = new JavaSec();
+                    obj1.projectId = id;
+                    obj1.amount = amount;
+                    obj1.details = details;
+                    obj1.isValid = isvalid;
+                    obj1.attachmentid = attachid;
+                    DataProvider.InsertJava(obj1, techtype);
+                    DataProvider.InsertAttachments(attachid, attachdata);
+                }
             }
+            catch (Exception ex)
+            { }
+        }
+
+        public ActionResult uploadhelper()
+        {
+            return View();
         }
     }
 }

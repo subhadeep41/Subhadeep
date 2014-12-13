@@ -258,11 +258,28 @@ namespace IndiaLance.UtilityDatabase
                 objCommand.Parameters.Add("@Details", SqlDbType.Text).Value = obj.details;
                 objCommand.Parameters.Add("@IsAvail", SqlDbType.VarChar).Value = obj.isValid;
                 objCommand.Parameters.Add("@ittype", SqlDbType.Int).Value = type1;
+                objCommand.Parameters.Add("@attachmentid", SqlDbType.Int).Value = obj.attachmentid;
                 objCommand.ExecuteNonQuery();
                 myConnection.Close();
             }
         }
 
-
+        public static void InsertAttachments(int id, string blob)
+        {
+            string storeprocedure = "sp_attachments";
+            
+            SqlConnection myConnection = DBUtility.getConnection();
+            using (myConnection)
+            {
+                myConnection.Open();
+                SqlCommand objCommand = new SqlCommand(storeprocedure, myConnection);
+                objCommand.Connection = myConnection;
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.Parameters.Add("@attachmentid", SqlDbType.Int).Value = id;
+                objCommand.Parameters.Add("@blob", SqlDbType.VarChar).Value = blob;
+                objCommand.ExecuteNonQuery();
+                myConnection.Close();
+            }
+        }
     }
 }

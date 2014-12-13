@@ -29,9 +29,15 @@
             <h1>Details about the project:</h1>
             @Html.TextArea("detailsid", null, new { style = "width: 667px; height: 213px;", @class = "fr", placeholder = "Please mention about the project in minimum of about 100 words. And also attach if any documents required." })
         </aside>
-        <aside class="fl">
+        <aside style="left: 275px" class="fl">
+            <div></div>
+        </aside>
+        <aside style="left: 275px" class="fl">
             <input type="submit" value="Proceed" onclick="createnew();" />
             <input type="submit" value="Clear" onclick="clearall();" />
+            <a href="Javascript:void(0);" onclick="openmodal()">attachments</a>
+        </aside>
+        <aside style="left: 275px;padding-left: 10px" id="attachmentaddid" class="fl">
         </aside>
     </section>
     <aside id="conf" class="hide fl">
@@ -41,11 +47,14 @@
         Amount set: <span id="amountid"></span>
         <br />
         <label id="succedid" class="fl" style="width: 800px; height: 50px;">Succeeded !!</label>
-        <aside id="continueid">@Html.ActionLink("Continue to Dashboard ", "Home", "Home", null, new { @class = "continueclass fr" })
-            @Html.ActionLink("Post a new project", "NewPostPage", "NewPost", null, new { @class = "continueclass fr" })
+        <aside id="continueid">@Html.ActionLink("Continue to Dashboard ", "Home", "Home", null, new { @class = "continueclass ps fr" })
+            @Html.ActionLink("Post a new project", "NewPostPage", "NewPost", null, new { @class = "continueclass ps fr" })
         </aside>
     </aside>
-
+    <aside id="overlay" class="">
+        @Html.Partial("~/Views/Shared/uploader.cshtml");
+    </aside>
+    <div id="fade"></div>
 </section>
 
 <script>

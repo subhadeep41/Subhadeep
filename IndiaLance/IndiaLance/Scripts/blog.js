@@ -23,6 +23,17 @@ function loadEvents(objHub) {
         }
     });
 
+    $(document).on('click', '#btnregister', function () {
+        
+        var name = $("#txtname").val();
+        var pass = $("#txtpassword").val();
+        var email = $("#txtemail").val();
+        if (name.length > 0 && pass.length > 0 && email.length > 0) {
+            // <<<<<-- ***** Return to Server [  register  ] *****
+            objHub.server.register(name, pass, email);
+        }
+    });
+
     $('#btnSendMessage').click(function () {
         var msg = $("#txtMessage").val();
         if (msg.length > 0) {
@@ -51,12 +62,27 @@ function loadEvents(objHub) {
 function loadClientMethods(objHub) {
 
     objHub.client.NoExistAdmin = function () {
-        var divNoExist = $('<div><p>There is no Admin to response you try again later</P></div>');
+        var divNoExist = $('<div><p>Incorrect username or password!!</P></div>');
         $("#divChat").hide();
         $("#divLogin").show();
         $(divNoExist).hide();
         $('#divalarm').prepend(divNoExist);
         $(divNoExist).fadeIn(900).delay(1000).fadeOut(900);
+    }
+
+    objHub.client.servererror = function () {
+        alert("Temporary server error.. please try again later");
+    }
+
+    objHub.client.register = function (username) {
+        $("#divregistered").fadeIn(1000).delay(600).fadeOut(600);
+        $("#divregistered").html(username + " registered successfully!!");
+        $("#divregistered").animate({
+            display: "block",
+        }, 600, function () {
+            $("#divregister").fadeOut(0);
+            $("#divLogin").fadeIn(1000);
+        });
     }
 
     objHub.client.getMessages = function (userName, message) {
@@ -73,10 +99,10 @@ function loadClientMethods(objHub) {
         $('#divMessage').scrollTop(height);
     }
 
-    objHub.client.onConnected = function (id, userName, UserID, userGroup, adminonline) {
+    objHub.client.onConnected = function (id, userName, UserID, userGroup) {
         var strWelcome = 'Welcome' + " " + userName;
         $('#welcome').append('<div><h1>Welcome: ' + userName + '</h1></div>');
-        $('#onlineusers').append('<div>online users: ' + adminonline + '</div>');
+        //$('#onlineusers').append('<div>online users: ' + adminonline + '</div>');
         $('#hId').val(id);
         $('#hUserId').val(UserID);
         $('#hUserName').val(userName);
@@ -85,3 +111,19 @@ function loadClientMethods(objHub) {
         $("#divLogin").hide();
     }
 }
+
+$(document).ready(function () {
+    $(document).on('click', '#registerid', function () {
+        $('#txtname').val("");
+        $('#txtpassword').val("");
+        $('#txtemail').val("");
+        $("#divLogin").fadeOut(0);
+        $("#divregister").fadeIn(1000);
+    });
+
+    
+
+    $(document).on('click', '.jqshowchatbox', function () {
+        $('#divChatwinwod').removeClass('hide');
+    });
+});

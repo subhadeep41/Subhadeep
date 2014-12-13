@@ -16,10 +16,10 @@ namespace IndiaLance
     using System.Data.Objects.DataClasses;
     using System.Linq;
     
-    public partial class MyDatabase1Entities : DbContext
+    public partial class MyDatabase1Entities1 : DbContext
     {
-        public MyDatabase1Entities()
-            : base("name=MyDatabase1Entities")
+        public MyDatabase1Entities1()
+            : base("name=MyDatabase1Entities1")
         {
         }
     

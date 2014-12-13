@@ -1,26 +1,41 @@
 ﻿@{
     ViewBag.Title = "LiveChat";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
-    <script src="~/Scripts/jquery-1.6.4.min.js"></script>
+    <script src="~/Scripts/jquery-1.8.0.min.js"></script>
     <script src="~/Scripts/jquery.signalR-2.1.1.min.js"></script>
     <script src="~/signalr/hubs" type="text/javascript"></script>
     <script src="~/Scripts/blog.js"></script>
+    <link href="~/CSS/blog.css" rel="stylesheet" />
 }
 
 <h2>LiveChat</h2>
 <section class="fl">
     <aside id="divLogin" class="panelHeader">
+        <h1>Login to chat: </h1>
         User Name:<input id="txtUserName" type="text" /><br />
         Password :<input id="txtPassword" type="password" /><br />
         <input id="btnLogin" type="button" value="Login" />
+        <input id="registerid" type="button" value="Register" />
         <div id="divalarm"></div>
+    </aside>
+    <aside id="divregister" class="hide panelHeader">
+        <h1>Register to chat: </h1>
+        User Name:<input id="txtname" type="text" /><br />
+        Password :<input id="txtpassword" type="password" /><br />
+        Email :<input id="txtemail" type="email" /><br />
+        <input id="btnregister" type="button" value="Submit" />
+        <div id="divregistered" class="hide"></div>
     </aside>
 
     <aside id="divChat" class="mylogin">
         <div id="welcome"></div>
         <div id="onlineusers"></div>
+        <a href="javascript:void(0);" class="jqshowchatbox">Chatbox</a>
         <br />
-        <article style="width: 400px; max-height:200px; overflow:auto;padding:5px; background: #FFFFFF; padding: 10px; border: 1px solid #000000">
+    </aside>
+
+    <aside id="divChatwinwod" class="hide">
+        <article class="chatwindow">
             <div id="divMessage"></div>
             <input style="width: 335px;" id="txtMessage" type="text" />
             <input id="btnSendMessage" type="button" value="Send" />
@@ -31,17 +46,3 @@
 <input id="hId" type="hidden" />
 <input id="hUserName" type="hidden" />
 <input id="hGroup" type="hidden" />
-
-<style type="text/css">
-    .panelHeader
-    {
-        color:#15428b;
-        font-weight:bold; 
-        font-size: 11px;
-        font-family: tahoma,arial,verdana,sans-serif;
-        border-color:#99bbe8;
-        background-image: url(Images/white-top-bottom.gif);
-        line-height:26px;
-        padding-left:10px;
-    }
-</style>

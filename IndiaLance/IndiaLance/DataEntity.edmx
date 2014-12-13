@@ -157,6 +157,7 @@
           <Property Name="UserName" Type="nchar" MaxLength="50" />
           <Property Name="Password" Type="nchar" MaxLength="50" />
           <Property Name="AdminCode" Type="int" />
+          <Property Name="EmailID" Type="nchar" MaxLength="50" />
         </EntityType>
         <Function Name="InsertRecordJava" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ProjectId" Type="int" Mode="In" />
@@ -170,7 +171,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MyDatabase1Model" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="MyDatabase1Entities" p1:LazyLoadingEnabled="true">
+        <EntityContainer Name="MyDatabase1Entities1" p1:LazyLoadingEnabled="true">
           <EntitySet Name="DataEntries" EntityType="MyDatabase1Model.DataEntry" />
           <EntitySet Name="DesignMedias" EntityType="MyDatabase1Model.DesignMedia" />
           <EntitySet Name="Enggs" EntityType="MyDatabase1Model.Engg" />
@@ -265,13 +266,14 @@
           <Property Name="UserName" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
           <Property Name="Password" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
           <Property Name="AdminCode" Type="Int32" />
+          <Property Name="EmailID" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MyDatabase1ModelStoreContainer" CdmEntityContainer="MyDatabase1Entities">
+        <EntityContainerMapping StorageEntityContainer="MyDatabase1ModelStoreContainer" CdmEntityContainer="MyDatabase1Entities1">
           <EntitySetMapping Name="DataEntries">
             <EntityTypeMapping TypeName="MyDatabase1Model.DataEntry">
               <MappingFragment StoreEntitySet="DataEntry">
@@ -354,6 +356,7 @@
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="AdminCode" ColumnName="AdminCode" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

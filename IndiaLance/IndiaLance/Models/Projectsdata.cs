@@ -45,5 +45,6 @@ namespace IndiaLance.Models
         public int amount { get; set; }
         public string details { get; set; }
         public string isValid { get; set; }
+        public int attachmentid { get; set; }
     }
 }

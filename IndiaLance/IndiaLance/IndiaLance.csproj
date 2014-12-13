@@ -68,6 +68,7 @@
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -84,6 +85,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Entity.Design" />
+    <Reference Include="System.Windows" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -138,12 +140,14 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\DesignMediaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ITPagesController.cs" />
+    <Compile Include="Controllers\MarketController.cs" />
     <Compile Include="Controllers\NewPostController.cs" />
     <Compile Include="Controllers\OpeningPageController.cs" />
     <Compile Include="DataEntity.Context.cs">
@@ -180,8 +184,10 @@
     <Compile Include="ITTechDetail.cs">
       <DependentUpon>DataEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CardDeckViewModel.cs" />
     <Compile Include="Models\MessageInfo.cs" />
     <Compile Include="Models\Projectsdata.cs" />
+    <Compile Include="Models\Quote.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Projects1.cs">
       <DependentUpon>DataEntity.tt</DependentUpon>
@@ -205,14 +211,33 @@
     <Content Include="App_Data\MyDatabase_log.ldf">
       <DependentUpon>MyDatabase.mdf</DependentUpon>
     </Content>
+    <Content Include="CSS\blog.css" />
     <Content Include="CSS\contact.css" />
     <Content Include="CSS\Html5.css" />
     <Content Include="CSS\newpage.css" />
     <Content Include="CSS\style.css" />
+    <Content Include="CSS\uploadcss.css" />
     <Content Include="Global.asax" />
     <Content Include="Images\home1wall.jpg" />
     <Content Include="Images\homewall.jpg" />
     <Content Include="Images\logo.JPG" />
+    <EntityDeploy Include="DataEntity.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DataEntity.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DataEntity.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataEntity.edmx</DependentUpon>
+      <LastGenOutput>DataEntity.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataEntity.edmx.diagram">
+      <DependentUpon>DataEntity.edmx</DependentUpon>
+    </Content>
+    <Content Include="DataEntity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataEntity.edmx</DependentUpon>
+      <LastGenOutput>DataEntity.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\blog.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
@@ -220,9 +245,11 @@
     <Content Include="Scripts\jquery-1.8.0.min.js" />
     <Content Include="Scripts\jquery.signalR-2.1.1.js" />
     <Content Include="Scripts\jquery.signalR-2.1.1.min.js" />
+    <Content Include="Scripts\market.js" />
     <Content Include="Scripts\MicrosoftAjax.js" />
     <Content Include="Scripts\newpage.js" />
     <Content Include="Scripts\script.js" />
+    <Content Include="Scripts\uploadjs.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -231,6 +258,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Shared\uploader.cshtml" />
+    <Content Include="Views\NewPost\uploadhelper.cshtml" />
+    <Content Include="Views\Market\Market.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -292,27 +322,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\DesignMedia\imaging.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="DataEntity.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DataEntity.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="DataEntity.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataEntity.edmx</DependentUpon>
-      <LastGenOutput>DataEntity.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DataEntity.edmx.diagram">
-      <DependentUpon>DataEntity.edmx</DependentUpon>
-    </Content>
-    <Content Include="DataEntity.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataEntity.edmx</DependentUpon>
-      <LastGenOutput>DataEntity.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
